@@ -1,28 +1,50 @@
 import React, { Component } from 'react'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
+import ScheduleGameCard from '../components/ScheduleGameCard'
 
 export class Schedule extends Component {
+
+    state = {
+        selectedWeek: null
+    }
+
+    changeWeek = (event) => {
+        console.log(event)
+    }
+
     render() {
+
+        console.log(this.props.weeklyGames.filter(week => week.name === "Week 1"))
+        let weekOneGameCards = []
+        if (this.props.weeklyGames.length > 0) {
+            let weekOneGames = this.props.weeklyGames.filter(week => week.name === "Week 1")
+            weekOneGameCards = weekOneGames[0].week_games.map(game => <ScheduleGameCard {...game} />)
+        }
         const options = [
-            'Week 1', 'Week 2'
+            'Week 1',
+            'Week 2',
+            'Week 3',
+            'Week 4',
+            'Week 5',
+            'Week 6',
+            'Week 7',
+            'Week 8',
+            'Week 9',
+            'Week 10',
+            'Week 11',
+            'Week 12',
+            'Week 13',
+            'Week 14',
         ]
+
         const defaultOption = options[0]
+
         return (
-            <div className="schedule">
+            <div onClick={this.changeWeek} className="schedule">
                 <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
-                <div className="game-display">
-                    <p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Flag_of_Russia.svg/250px-Flag_of_Russia.svg.png" alt="Russia" />Russia: 210</p>
-                    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/250px-Flag_of_Mexico.svg.png" alt="Mexico" />Mexico: 330</p>
-                    <p>FINAL</p>
-                    <p>Stats: Jose Rodriguez catches the snitch for Mexico.  Vladimir Tarasenko scored the quaffle 19 times for Russia.</p>
-                </div>
-                <div className="game-display">
-                    <p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/250px-Flag_of_the_United_States.svg.png" alt="USA" />United States: 170</p>
-                    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/250px-Flag_of_Canada_%28Pantone%29.svg.png" alt="Canada" />Canada: 180</p>
-                    <p>FINAL</p>
-                    <p>Stats: Ryan Sanderson scored the quaffle 15 times for USA.  Matt Barnaby caught the snitch for Canada.</p>
-                </div>
+                <br />
+                {weekOneGameCards}
             </div>
         )
     }

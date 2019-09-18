@@ -8,13 +8,24 @@
   justify-content: space-evenly;
 }
 
-.game-display {
+.home-game-display {
   border-style: groove;
 }
 
-.game-display img {
+.home-game-display img {
   width: 10%;
   height: auto;
+  border-style: solid;
+}
+
+.schedule-game-display {
+  border-style: groove;
+}
+
+.schedule-game-display img {
+  width: 10%;
+  height: auto;
+  border-style: solid;
 }
 
 .home {
@@ -26,6 +37,13 @@
   margin: 15px;
   box-sizing: border-box;
 }
+
+.standings {
+  padding: 15px;
+  margin: 15px;
+}
+
+
 
 .rosters {
   padding: 15px;
@@ -54,7 +72,9 @@
 .schedule {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  padding: 15px;
+  margin: 15px;
 }
 
 .stats {

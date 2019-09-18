@@ -11,9 +11,9 @@ export class NavBar extends Component {
                 <Link to="/stats">Player Stats</Link>
                 <Link to="/standings">Standings</Link>
                 <Link to="/playoffs">Playoffs</Link>
-                <Link to="">Weekly Pick Em</Link>
-                <Link to="">Eliminator Pick Em</Link>
-                <Link to="">Daily Fantasy</Link>
+                <Link to="/fantasy">Weekly Pick Em</Link>
+                <Link to="/fantasy">Eliminator Pick Em</Link>
+                <Link to="/fantasy">Daily Fantasy</Link>
             </div>
         )
     }

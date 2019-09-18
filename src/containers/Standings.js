@@ -5,77 +5,89 @@ import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 
 export class Standings extends Component {
+
+    state = {
+        filteredDivision: null,
+        option: "League Standings"
+    }
+
+    changeDivision = (event) => {
+        console.log(event.value)
+        // let teamsDivision = this.props.allTeams.map(team => team.division)
+        if (event.value === "League Standings") {
+            let allTeams = this.props.allTeams.map(team => team)
+            this.setState({ filteredDivision: allTeams })
+            this.setState({ option: "League Standings" })
+        }
+        else if (event.value) {
+            let divisionTeams = this.props.allTeams.filter(team => team.division === event.value).map(team => team)
+            this.setState({ filteredDivision: divisionTeams })
+            this.setState({ option: event.value })
+        }
+    }
+
     render() {
+        let allTeams = this.props.allTeams.map(team => team)
+
         const options = [
-            'Division', 'League'
+            'League Standings', 'Asia', 'The Americas and Oceania', "Europe", "Africa and Western Asia"
         ]
+
         const defaultOption = options[0]
-        const data = [{
-            team: "United States of America",
-            games_played: 3,
-            wins: 3,
-            losses: 0,
-            points_for: 600,
-            points_against: 300
-        },
-        {
-            team: "Canada",
-            games_played: 3,
-            wins: 2,
-            losses: 1,
-            points_for: 600,
-            points_against: 400
-        },
-        {
-            team: "Mexico",
-            games_played: 3,
-            wins: 1,
-            losses: 2,
-            points_for: 400,
-            points_against: 600
-        },
-        {
-            team: "Russia",
-            games_played: 3,
-            wins: 0,
-            losses: 3,
-            points_for: 400,
-            points_against: 700
-        },
-        ]
+
         const columns = [{
-            Header: 'Team',
-            accessor: 'team'
+            Header: 'National Team Name',
+            accessor: 'name'
         },
         {
-            Header: 'Games Played',
-            accessor: 'games_played'
+            Header: 'Games',
+            accessor: 'games_played',
+            minWidth: 30
         },
         {
             Header: 'Wins',
-            accessor: 'wins'
+            accessor: 'wins',
+            minWidth: 30
         },
         {
             Header: 'Losses',
-            accessor: 'losses'
+            accessor: 'losses',
+            minWidth: 30
         },
         {
             Header: 'Points For',
-            accessor: 'points_for'
+            accessor: 'points_for',
+            minWidth: 30
         },
         {
             Header: 'Points Against',
-            accessor: 'points_against'
+            accessor: 'points_against',
+            minWidth: 30
         }]
         return (
-            <div>
-                Standings:
-                <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
-                <ReactTable
-                    data={data}
-                    columns={columns}
-                    defaultPageSize={32}
-                />
+            <div className="standings">
+                <Dropdown options={options} onChange={this._onSelect} value={`Division: ${this.state.option}`} placeholder="League Standings" onChange={this.changeDivision} />
+                <br />
+                {this.state.filteredDivision === null ? (
+                    <div>
+                        <ReactTable
+                            data={allTeams}
+                            columns={columns}
+                            defaultPageSize={32}
+                            defaultSorted={[{ id: "wins", desc: true }, { id: "points_for", desc: true }]}
+                        />
+                    </div>
+                ) :
+                    (
+                        <div>
+                            <ReactTable
+                                data={this.state.filteredDivision}
+                                columns={columns}
+                                defaultPageSize={32}
+                                defaultSorted={[{ id: "wins", desc: true }, { id: "points_for", desc: true }]}
+                            />
+                        </div>
+                    )}
             </div>
         )
     }
