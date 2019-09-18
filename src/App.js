@@ -5,9 +5,8 @@ import NavBar from '../src/containers/NavBar'
 import GameDisplay from '../src/components/GameDisplay'
 import Roster from '../src/containers/Roster'
 import Schedule from '../src/containers/Schedule'
-import Playoffs from '../src/containers/Playoffs'
+import Standings from './containers/Standings'
 import Stats from '../src/containers/Stats'
-
 import { withRouter, Switch, Route } from 'react-router-dom'
 
 export class App extends React.Component {
@@ -16,11 +15,6 @@ export class App extends React.Component {
       <div className="app">
         <GameDisplay />
         <NavBar />
-        <Playoffs />
-        <Stats />
-        <Schedule />
-        <Roster />
-        <Home />
         <Switch>
           <Route
             path="/home"
@@ -32,7 +26,58 @@ export class App extends React.Component {
               )
             }}
           />
+          <Route
+            path="/rosters"
+            render={() => {
+              return (
+                <div>
+                  <Roster />
+                </div>
+              )
+            }}
+          />
+          <Route
+            path="/schedule"
+            render={() => {
+              return (
+                <div>
+                  <Schedule />
+                </div>
+              )
+            }}
+          />
+          <Route
+            path="/stats"
+            render={() => {
+              return (
+                <div>
+                  <Stats />
+                </div>
+              )
+            }}
+          />
+          <Route
+            path="/standings"
+            render={() => {
+              return (
+                <div>
+                  <Standings />
+                </div>
+              )
+            }}
+          />
+          <Route
+            path="/playoffs"
+            render={() => {
+              return (
+                <div>
+                  <Home />
+                </div>
+              )
+            }}
+          />
         </Switch >
+
       </div>
     )
   }
