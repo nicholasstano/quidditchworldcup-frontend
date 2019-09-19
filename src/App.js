@@ -35,6 +35,7 @@ export class App extends React.Component {
     return (
       <div className="app">
         <GameDisplay weeklyGames={this.state.weeklyGames} />
+        <br />
         <NavBar />
         <Switch>
           <Route

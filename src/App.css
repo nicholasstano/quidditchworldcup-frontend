@@ -5,15 +5,31 @@
 
 .all-game-display {
   display: flex;
-  justify-content: space-evenly;
+  overflow: auto;
+  justify-content: space-between;
 }
 
 .home-game-display {
   border-style: groove;
+  width: 200px;
+  height: 130px;
+  justify-content: space-between
+}
+
+.date-display {
+  border-style: groove;
+  width: 200px;
+  height: 130px;
+  justify-content: center;
+  align-items: center;
+}
+
+.date {
+  justify-content: center;
 }
 
 .home-game-display img {
-  width: 10%;
+  width: 15%;
   height: auto;
   border-style: solid;
 }

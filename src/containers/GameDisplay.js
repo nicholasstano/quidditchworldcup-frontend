@@ -1,40 +1,36 @@
 import React, { Component } from 'react'
+import GameDisplayCard from '../components/GameDisplayCard'
 
 export class GameDisplay extends Component {
 
+    state = {
+        date: "HELLO"
+    }
+
+    renderSelectedWk = () => {
+        if (this.props.weeklyGames.length > 0) {
+            let uncompletedWeek = this.props.weeklyGames.filter(week => week.games_completed === false)[0]
+            let uncompletedGames = uncompletedWeek.week_games.map(game => <GameDisplayCard uncompletedDate={uncompletedWeek.date} {...game} />)
+            // this.setDate(uncompletedWeek.date)
+            return uncompletedGames
+        }
+    }
+
+    setDate = () => {
+        if (this.props.weeklyGames.length > 0) {
+            let uncompletedWeek = this.props.weeklyGames.filter(week => week.games_completed === false)[0]
+            return uncompletedWeek.date
+        }
+    }
+
     render() {
+
         return (
             <div className="all-game-display">
-                <div className="home-game-display">
-                    <p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/250px-Flag_of_the_United_States.svg.png" alt="USA" />United States: 170</p>
-                    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/250px-Flag_of_Canada_%28Pantone%29.svg.png" alt="Canada" />Canada: 180</p>
-                    <p>FINAL</p>
+                <div className="date-display">
+                    <p>{this.setDate()}</p>
                 </div>
-                <div className="home-game-display">
-                    <p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/250px-Flag_of_the_United_States.svg.png" alt="USA" />United States: 170</p>
-                    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/250px-Flag_of_Canada_%28Pantone%29.svg.png" alt="Canada" />Canada: 180</p>
-                    <p>FINAL</p>
-                </div>
-                <div className="home-game-display">
-                    <p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/250px-Flag_of_the_United_States.svg.png" alt="USA" />United States: 170</p>
-                    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/250px-Flag_of_Canada_%28Pantone%29.svg.png" alt="Canada" />Canada: 180</p>
-                    <p>FINAL</p>
-                </div>
-                <div className="home-game-display">
-                    <p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/250px-Flag_of_the_United_States.svg.png" alt="USA" />United States: 170</p>
-                    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/250px-Flag_of_Canada_%28Pantone%29.svg.png" alt="Canada" />Canada: 180</p>
-                    <p>FINAL</p>
-                </div>
-                <div className="home-game-display">
-                    <p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/250px-Flag_of_the_United_States.svg.png" alt="USA" />United States: 170</p>
-                    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/250px-Flag_of_Canada_%28Pantone%29.svg.png" alt="Canada" />Canada: 180</p>
-                    <p>FINAL</p>
-                </div>
-                <div className="home-game-display">
-                    <p><img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/250px-Flag_of_the_United_States.svg.png" alt="USA" />United States: 170</p>
-                    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/250px-Flag_of_Canada_%28Pantone%29.svg.png" alt="Canada" />Canada: 180</p>
-                    <p>FINAL</p>
-                </div>
+                {this.renderSelectedWk()}
             </div>
         )
     }
