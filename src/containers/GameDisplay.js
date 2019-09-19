@@ -3,15 +3,10 @@ import GameDisplayCard from '../components/GameDisplayCard'
 
 export class GameDisplay extends Component {
 
-    state = {
-        date: "HELLO"
-    }
-
     renderSelectedWk = () => {
         if (this.props.weeklyGames.length > 0) {
             let uncompletedWeek = this.props.weeklyGames.filter(week => week.games_completed === false)[0]
-            let uncompletedGames = uncompletedWeek.week_games.map(game => <GameDisplayCard uncompletedDate={uncompletedWeek.date} {...game} />)
-            // this.setDate(uncompletedWeek.date)
+            let uncompletedGames = uncompletedWeek.week_games.map(game => <GameDisplayCard {...game} key={game.game_id} />)
             return uncompletedGames
         }
     }

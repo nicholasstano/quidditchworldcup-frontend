@@ -36,6 +36,8 @@
 
 .schedule-game-display {
   border-style: groove;
+  width: 420px;
+  height: 160px;
 }
 
 .schedule-game-display img {
@@ -58,8 +60,6 @@
   padding: 15px;
   margin: 15px;
 }
-
-
 
 .rosters {
   padding: 15px;
@@ -86,9 +86,14 @@
 }
 
 .schedule {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-row: auto auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.schedule-with-dropdown {
   padding: 15px;
   margin: 15px;
 }
@@ -100,4 +105,3 @@
   padding: 15px;
   margin: 15px;
 }
-

@@ -36,10 +36,12 @@ export class Schedule extends Component {
         const defaultOption = options[0]
 
         return (
-            <div onClick={this.changeWeek} className="schedule">
+            <div onClick={this.changeWeek} className="schedule-with-dropdown">
                 <Dropdown options={options} onChange={this.changeWeek} value={this.state.option} placeholder="Select an option" />
                 <br />
-                {this.state.selectedWeek === null ? weekOneGameCards : this.renderSelectedWk()}
+                <div className="schedule">
+                    {this.state.selectedWeek === null ? weekOneGameCards : this.renderSelectedWk()}
+                </div>
             </div>
         )
     }
