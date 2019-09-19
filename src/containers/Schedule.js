@@ -6,45 +6,40 @@ import ScheduleGameCard from '../components/ScheduleGameCard'
 export class Schedule extends Component {
 
     state = {
-        selectedWeek: null
+        selectedWeek: null,
+        option: ""
     }
 
     changeWeek = (event) => {
-        console.log(event)
+        if (event.value) {
+            let weekGames = this.props.weeklyGames.filter(week => week.name === event.value)
+            this.setState({ selectedWeek: weekGames })
+            this.setState({ option: event.value })
+        }
+    }
+
+    renderSelectedWk = () => {
+        return this.state.selectedWeek[0].week_games.map(game =>
+            < ScheduleGameCard key={game.game_id} {...game} />)
     }
 
     render() {
-
-        console.log(this.props.weeklyGames.filter(week => week.name === "Week 1"))
         let weekOneGameCards = []
         if (this.props.weeklyGames.length > 0) {
             let weekOneGames = this.props.weeklyGames.filter(week => week.name === "Week 1")
-            weekOneGameCards = weekOneGames[0].week_games.map(game => <ScheduleGameCard {...game} />)
+            weekOneGameCards = weekOneGames[0].week_games.map(game =>
+                < ScheduleGameCard key={game.game_id} {...game} />)
+
         }
-        const options = [
-            'Week 1',
-            'Week 2',
-            'Week 3',
-            'Week 4',
-            'Week 5',
-            'Week 6',
-            'Week 7',
-            'Week 8',
-            'Week 9',
-            'Week 10',
-            'Week 11',
-            'Week 12',
-            'Week 13',
-            'Week 14',
-        ]
+        const options = this.props.weeklyGames.map(week => week.name)
 
         const defaultOption = options[0]
 
         return (
             <div onClick={this.changeWeek} className="schedule">
-                <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+                <Dropdown options={options} onChange={this.changeWeek} value={this.state.option} placeholder="Select an option" />
                 <br />
-                {weekOneGameCards}
+                {this.state.selectedWeek === null ? weekOneGameCards : this.renderSelectedWk()}
             </div>
         )
     }

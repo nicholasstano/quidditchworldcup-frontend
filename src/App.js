@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Home from '../src/containers/Home'
 import NavBar from '../src/containers/NavBar'
-import GameDisplay from '../src/components/GameDisplay'
+import GameDisplay from './containers/GameDisplay'
 import Roster from '../src/containers/Roster'
 import Schedule from '../src/containers/Schedule'
 import Standings from './containers/Standings'
@@ -16,16 +16,19 @@ export class App extends React.Component {
     weeklyGames: [],
     regular_season_games: [],
     allTeams: [],
-    players: []
+    allPlayers: []
   }
 
   componentDidMount() {
     fetch(`http://localhost:3000/weeks`)
       .then(res => res.json())
-      .then(data => this.setState({ weeklyGames: data }))
+      .then(weeks => this.setState({ weeklyGames: weeks }))
     fetch(`http://localhost:3000/teams`)
       .then(res => res.json())
-      .then(data => this.setState({ allTeams: data }))
+      .then(teams => this.setState({ allTeams: teams }))
+    fetch(`http://localhost:3000/players`)
+      .then(res => res.json())
+      .then(players => this.setState({ allPlayers: players }))
   }
 
   render() {
@@ -45,7 +48,7 @@ export class App extends React.Component {
             path="/rosters"
             render={() => {
               return (
-                <div><Roster /></div>
+                <div><Roster allTeams={this.state.allTeams} /></div>
               )
             }} />
           <Route
@@ -59,7 +62,7 @@ export class App extends React.Component {
             path="/stats"
             render={() => {
               return (
-                <div><Stats /></div>
+                <div><Stats allPlayers={this.state.allPlayers} /></div>
               )
             }} />
           <Route

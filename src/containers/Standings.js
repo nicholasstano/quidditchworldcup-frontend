@@ -12,8 +12,6 @@ export class Standings extends Component {
     }
 
     changeDivision = (event) => {
-        console.log(event.value)
-        // let teamsDivision = this.props.allTeams.map(team => team.division)
         if (event.value === "League Standings") {
             let allTeams = this.props.allTeams.map(team => team)
             this.setState({ filteredDivision: allTeams })
