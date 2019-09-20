@@ -37,7 +37,7 @@ export class Roster extends Component {
             bludgers_smashed: 0
         }
         ]
-        const columns = [{
+        const roster_information = [{
             Header: 'Name',
             accessor: 'name'
         },
@@ -66,29 +66,80 @@ export class Roster extends Component {
             minWidth: 50
         }
         ]
+        const schedule_information = [
+            {
+                Header: 'Week Id',
+                accessor: 'week_id',
+                show: false
+            },
+            {
+                Header: 'Home Team',
+                accessor: 'home_name'
+            },
+            {
+                Header: 'Score',
+                accessor: 'home_score',
+                minWidth: 35
 
+            },
+            {
+                Header: 'Away Team',
+                accessor: 'away_name'
+            },
+            {
+                Header: 'Score',
+                accessor: 'away_score',
+                minWidth: 35
+            }
+        ]
+        console.log(firstTeam.schedule)
         return (
             <div className="rosters">
                 <Dropdown options={options} onChange={this.changeTeam} value={defaultOption} placeholder="Select an option" />
+                <br />
                 {this.state.selectedTeam === null ?
                     (<div>
-                        <h1>{firstTeam.name}</h1>
-                        <img src={firstTeam.flag} alt={firstTeam.name} />
+                        <div className="name-flag-schedule">
+                            <div className="name-and-flag">
+                                <h1>{firstTeam.name}</h1>
+                                <img src={firstTeam.flag} alt={firstTeam.name} />
+                            </div>
+                            <div className="teams-schedule">
+                                <ReactTable
+                                    data={firstTeam.schedule}
+                                    columns={schedule_information}
+                                    defaultPageSize={14}
+                                    defaultSorted={[{ id: "week_id", desc: false }]}
+                                />
+                            </div>
+                        </div>
                         <br />
                         <ReactTable
                             data={firstTeam.player_roster}
-                            columns={columns}
+                            columns={roster_information}
                             defaultPageSize={7}
                             defaultSorted={[{ id: "name", desc: false }]}
                         />
                     </div>) :
                     (<div>
-                        <h1>{this.state.selectedTeam.name}</h1>
-                        <img src={this.state.selectedTeam.flag} alt={this.state.selectedTeam.name} />
+                        <div className="name-flag-schedule">
+                            <div className="name-and-flag">
+                                <h1>{this.state.selectedTeam.name}</h1>
+                                <img src={this.state.selectedTeam.flag} alt={this.state.selectedTeam.name} />
+                            </div>
+                            <div className="teams-schedule">
+                                <ReactTable
+                                    data={this.state.selectedTeam.schedule}
+                                    columns={schedule_information}
+                                    defaultPageSize={14}
+                                    defaultSorted={[{ id: "week_id", desc: false }]}
+                                />
+                            </div>
+                        </div>
                         <br />
                         <ReactTable
                             data={this.state.selectedTeam.player_roster}
-                            columns={columns}
+                            columns={roster_information}
                             defaultPageSize={7}
                             defaultSorted={[{ id: "name", desc: false }, { id: "points_for", desc: true }]}
                         />

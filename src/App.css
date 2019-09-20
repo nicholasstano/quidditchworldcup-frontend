@@ -16,6 +16,11 @@
   justify-content: space-between
 }
 
+.name-flag-schedule {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
 .date-display {
   border-style: groove;
   width: 200px;
