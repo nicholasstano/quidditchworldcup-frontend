@@ -33,8 +33,6 @@ export class Schedule extends Component {
         }
         const options = this.props.weeklyGames.map(week => week.name)
 
-        const defaultOption = options[0]
-
         return (
             <div onClick={this.changeWeek} className="schedule-with-dropdown">
                 <Dropdown options={options} onChange={this.changeWeek} value={this.state.option} placeholder="Select an option" />

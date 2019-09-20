@@ -7,13 +7,15 @@ import 'react-table/react-table.css'
 export class Roster extends Component {
 
     state = {
-        selectedTeam: null
+        selectedTeam: null,
+        option: ""
     }
 
     changeTeam = (event) => {
         if (event.value) {
             let team = this.props.allTeams.filter(team => team.name === event.value)
             this.setState({ selectedTeam: team[0] })
+            this.setState({ option: event.value })
         }
     }
 
@@ -25,18 +27,7 @@ export class Roster extends Component {
 
         const teamsNotAlphabetized = this.props.allTeams.map(team => team.name)
         const options = teamsNotAlphabetized.sort()
-        const defaultOption = options[0]
 
-        const data = [{
-            name: 'Yolanda Bird',
-            games_played: 3,
-            position: "Seeker",
-            goals_scored: 0,
-            saves: 0,
-            snitch_caught: 2,
-            bludgers_smashed: 0
-        }
-        ]
         const roster_information = [{
             Header: 'Name',
             accessor: 'name'
@@ -92,10 +83,9 @@ export class Roster extends Component {
                 minWidth: 35
             }
         ]
-        console.log(firstTeam.schedule)
         return (
             <div className="rosters">
-                <Dropdown options={options} onChange={this.changeTeam} value={defaultOption} placeholder="Select an option" />
+                <Dropdown options={options} onChange={this.changeTeam} value={this.state.option} placeholder="Select an option" />
                 <br />
                 {this.state.selectedTeam === null ?
                     (<div>

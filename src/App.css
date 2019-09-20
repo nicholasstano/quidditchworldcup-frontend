@@ -21,6 +21,10 @@
   grid-template-columns: 30% 70%;
 }
 
+.name-and-flag img {
+  border-style: solid;
+}
+
 .date-display {
   border-style: groove;
   width: 200px;
