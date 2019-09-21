@@ -22,7 +22,6 @@ export class Schedule extends Component {
         return this.state.selectedWeek[0].week_games.map(game =>
             < ScheduleGameCard key={game.game_id} {...game} />)
     }
-
     render() {
         let weekOneGameCards = []
         if (this.props.weeklyGames.length > 0) {
