@@ -12,6 +12,8 @@ export class ScheduleGameCard extends Component {
                 "accept": "application/json"
             },
         })
+        // .then(res => res.json())
+        // .then(data => console.log)
     }
 
     render() {
