@@ -59,22 +59,22 @@ export class Stats extends Component {
         },
         {
             Header: 'Quaffle Scored',
-            // accessor: 'goals_scored',
+            accessor: 'quaffle_scored',
             minWidth: 50
         },
         {
             Header: 'Snitch Captured',
-            // accessor: 'snitch_caught',
+            accessor: 'snitch_captured',
             minWidth: 50
         },
         {
             Header: 'Quaffle Saved',
-            // accessor: 'saves',
+            accessor: 'quaffle_saved',
             minWidth: 50
         },
         {
             Header: 'Bludgers Smashed',
-            // accessor: 'bludgers_smashed',
+            accessor: 'bludgers_smashed',
             minWidth: 50
         }
         ]
@@ -88,7 +88,7 @@ export class Stats extends Component {
                             data={chasers}
                             columns={columns}
                             defaultPageSize={96}
-                            defaultSorted={[{ id: "name", desc: false }, { id: "team_name", desc: true }]}
+                            defaultSorted={[{ id: "quaffle_scored", desc: true }, { id: "snitch_captured", desc: true }, { id: "quaffle_saved", desc: true }, { id: "bludgers_smashed", desc: true }, { id: "name", desc: false }]}
                         />
                     ) :
                     (
@@ -96,7 +96,7 @@ export class Stats extends Component {
                             data={this.state.selectedPosition}
                             columns={columns}
                             defaultPageSize={96}
-                            defaultSorted={[{ id: "name", desc: false }, { id: "team_name", desc: true }]}
+                            defaultSorted={[{ id: "quaffle_scored", desc: true }, { id: "snitch_captured", desc: true }, { id: "quaffle_saved", desc: true }, { id: "bludgers_smashed", desc: true }, { id: "name", desc: false }]}
                         />
                     )
                 }
