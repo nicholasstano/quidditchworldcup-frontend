@@ -91,8 +91,10 @@ export class Roster extends Component {
                     (<div>
                         <div className="name-flag-schedule">
                             <div className="name-and-flag">
-                                <h1>{firstTeam.name}</h1>
-                                <img src={firstTeam.flag} alt={firstTeam.name} />
+                                <center><h1>{firstTeam.name}</h1>
+                                    <p>Record: ({firstTeam.wins} - {firstTeam.losses})</p>
+                                    <p>Points For / Points Against: ({firstTeam.points_for} - {firstTeam.points_against})</p>
+                                </center>                                <img src={firstTeam.flag} alt={firstTeam.name} />
                             </div>
                             <div className="teams-schedule">
                                 <ReactTable
@@ -114,7 +116,10 @@ export class Roster extends Component {
                     (<div>
                         <div className="name-flag-schedule">
                             <div className="name-and-flag">
-                                <h1>{this.state.selectedTeam.name}</h1>
+                                <center><h1>{this.state.selectedTeam.name}</h1>
+                                    <p>Record: ({this.state.selectedTeam.wins} - {this.state.selectedTeam.losses})</p>
+                                    <p>Points For / Points Against: ({this.state.selectedTeam.points_for} - {this.state.selectedTeam.points_against})</p>
+                                </center>
                                 <img src={this.state.selectedTeam.flag} alt={this.state.selectedTeam.name} />
                             </div>
                             <div className="teams-schedule">

@@ -14,12 +14,18 @@ export class GameDisplay extends Component {
     setDate = () => {
         if (this.props.weeklyGames.length > 0) {
             let uncompletedWeek = this.props.weeklyGames.filter(week => week.games_completed === false)[0]
+            this.props.weeklyGames.map(week => fetch(`http://localhost:3000/weeks/${week.id}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-type": "application/json",
+                        "accept": "application/json"
+                    },
+                }))
             return uncompletedWeek.date
         }
     }
-
     render() {
-
         return (
             <div className="all-game-display">
                 <div className="date-display">

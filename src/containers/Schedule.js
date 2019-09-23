@@ -7,7 +7,7 @@ export class Schedule extends Component {
 
     state = {
         selectedWeek: null,
-        option: ""
+        option: "Week 1"
     }
 
     changeWeek = (event) => {
@@ -31,10 +31,14 @@ export class Schedule extends Component {
 
         }
         const options = this.props.weeklyGames.map(week => week.name)
-
         return (
             <div onClick={this.changeWeek} className="schedule-with-dropdown">
                 <Dropdown options={options} onChange={this.changeWeek} value={this.state.option} placeholder="Select an option" />
+                <br />
+                <h1><center>
+                    {this.state.selectedWeek === null ? "Week 1" : this.state.option}
+                </center>
+                </h1>
                 <br />
                 <div className="schedule">
                     {this.state.selectedWeek === null ? weekOneGameCards : this.renderSelectedWk()}

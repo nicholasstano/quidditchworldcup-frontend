@@ -31,8 +31,6 @@ export class Standings extends Component {
             'League Standings', 'Asia', 'The Americas and Oceania', "Europe", "Africa and Western Asia"
         ]
 
-        const defaultOption = options[0]
-
         const columns = [{
             Header: 'National Team Name',
             accessor: 'name'
@@ -64,7 +62,7 @@ export class Standings extends Component {
         }]
         return (
             <div className="standings">
-                <Dropdown options={options} onChange={this._onSelect} value={`Division: ${this.state.option}`} placeholder="League Standings" onChange={this.changeDivision} />
+                <Dropdown options={options} value={`Division: ${this.state.option}`} placeholder="League Standings" onChange={this.changeDivision} />
                 <br />
                 {this.state.filteredDivision === null ? (
                     <div>

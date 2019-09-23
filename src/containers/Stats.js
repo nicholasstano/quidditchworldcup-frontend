@@ -24,30 +24,6 @@ export class Stats extends Component {
         const options = [
             'Chaser', 'Keeper', 'Seeker', 'Beater'
         ]
-        const defaultOption = options[0]
-
-        const data = [{
-            name: 'Tanner John',
-            team: "United States of America",
-            games_played: 3,
-            position: "Chaser",
-            goals_scored: 9,
-        },
-        {
-            name: 'Ivan Drago',
-            team: "Russia",
-            games_played: 3,
-            position: "Chaser",
-            goals_scored: 12,
-        },
-        {
-            name: "Jimmy O'Connell",
-            team: "Ireland",
-            games_played: 3,
-            position: "Chaser",
-            goals_scored: 17,
-        }
-        ]
 
         const columns = [{
             Header: 'Name',

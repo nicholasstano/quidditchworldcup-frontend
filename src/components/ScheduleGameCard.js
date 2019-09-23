@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { send } from 'q'
 
 export class ScheduleGameCard extends Component {
 
     sendResults = () => {
-        // console.log(this.props.game_id)
         fetch(`http://localhost:3000/games/${this.props.game_id}`, {
             method: "PATCH",
             headers: {
