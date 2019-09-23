@@ -3,6 +3,19 @@
   justify-content: space-evenly;
 }
 
+.brackets {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;  
+}
+
+.round-of-eight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .all-game-display {
   display: flex;
   overflow: auto;

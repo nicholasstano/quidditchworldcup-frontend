@@ -7,7 +7,7 @@ export class Schedule extends Component {
 
     state = {
         selectedWeek: null,
-        option: "Week 1"
+        option: "Week 1",
     }
 
     changeWeek = (event) => {
@@ -20,14 +20,21 @@ export class Schedule extends Component {
 
     renderSelectedWk = () => {
         return this.state.selectedWeek[0].week_games.map(game =>
-            < ScheduleGameCard key={game.game_id} {...game} />)
+            < ScheduleGameCard updateGameCard={this.updateGameCard} key={game.game_id} {...game} />)
     }
+
+    updateGameCard = (data) => {
+        const newGameWeek = data.teamInfo
+        let updatedWeek = this.state.selectedWeek[0].week_games.slice().map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
+        this.setState({ selectedWeek: [{ ...this.state.selectedWeek, week_games: updatedWeek }] })
+    }
+
     render() {
         let weekOneGameCards = []
         if (this.props.weeklyGames.length > 0) {
             let weekOneGames = this.props.weeklyGames.filter(week => week.name === "Week 1")
             weekOneGameCards = weekOneGames[0].week_games.map(game =>
-                < ScheduleGameCard key={game.game_id} {...game} />)
+                < ScheduleGameCard updateGameCard={this.updateGameCard} key={game.game_id} {...game} />)
 
         }
         const options = this.props.weeklyGames.map(week => week.name)
@@ -35,9 +42,8 @@ export class Schedule extends Component {
             <div onClick={this.changeWeek} className="schedule-with-dropdown">
                 <Dropdown options={options} onChange={this.changeWeek} value={this.state.option} placeholder="Select an option" />
                 <br />
-                <h1><center>
-                    {this.state.selectedWeek === null ? "Week 1" : this.state.option}
-                </center>
+                <h1>
+                    {this.state.selectedWeek === null ? "Week 1 Games" : `${this.state.option} Games`}
                 </h1>
                 <br />
                 <div className="schedule">

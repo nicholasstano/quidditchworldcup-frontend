@@ -8,6 +8,7 @@ import Schedule from '../src/containers/Schedule'
 import Standings from './containers/Standings'
 import Stats from '../src/containers/Stats'
 import Fantasy from '../src/containers/Fantasy'
+import Playoffs from '../src/containers/Playoffs'
 import { withRouter, Switch, Route } from 'react-router-dom'
 
 export class App extends React.Component {
@@ -77,7 +78,7 @@ export class App extends React.Component {
             path="/playoffs"
             render={() => {
               return (
-                <div><Home /></div>
+                <div><Playoffs weeklyGames={this.state.weeklyGames} /></div>
               )
             }} />
           <Route

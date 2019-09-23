@@ -9,9 +9,9 @@ export class ScheduleGameCard extends Component {
                 "Content-type": "application/json",
                 "accept": "application/json"
             },
+        }).then(res => res.json()).then(data => {
+            this.props.updateGameCard(data)
         })
-        // .then(res => res.json())
-        // .then(data => console.log)
     }
 
     render() {
