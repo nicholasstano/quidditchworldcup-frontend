@@ -52,7 +52,6 @@ export class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.playoffTeams)
     return (
       <div className="app">
         <GameDisplay weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} />

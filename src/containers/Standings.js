@@ -19,8 +19,7 @@ export class Standings extends Component {
         }
         else if (event.value) {
             let divisionTeams = this.props.allTeams.filter(team => team.division === event.value).map(team => team)
-            this.setState({ filteredDivision: divisionTeams })
-            this.setState({ option: event.value })
+            this.setState({ filteredDivision: divisionTeams, option: event.value })
         }
     }
 
@@ -70,7 +69,7 @@ export class Standings extends Component {
                             data={allTeams}
                             columns={columns}
                             defaultPageSize={32}
-                            defaultSorted={[{ id: "wins", desc: true }, { id: "points_for", desc: true }]}
+                            defaultSorted={[{ id: "wins", desc: true }, { id: "points_for", desc: true }, { id: "points_against", desc: false }]}
                         />
                     </div>
                 ) :
@@ -80,7 +79,7 @@ export class Standings extends Component {
                                 data={this.state.filteredDivision}
                                 columns={columns}
                                 defaultPageSize={32}
-                                defaultSorted={[{ id: "wins", desc: true }, { id: "points_for", desc: true }]}
+                                defaultSorted={[{ id: "wins", desc: true }, { id: "points_for", desc: true }, { id: "points_against", desc: false }]}
                             />
                         </div>
                     )}
