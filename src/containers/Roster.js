@@ -14,8 +14,7 @@ export class Roster extends Component {
     changeTeam = (event) => {
         if (event.value) {
             let team = this.props.allTeams.filter(team => team.name === event.value)
-            this.setState({ selectedTeam: team[0] })
-            this.setState({ option: event.value })
+            this.setState({ selectedTeam: team[0], option: event.value })
         }
     }
 

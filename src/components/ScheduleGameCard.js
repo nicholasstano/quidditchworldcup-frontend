@@ -11,7 +11,8 @@ export class ScheduleGameCard extends Component {
             },
         }).then(res => res.json()).then(data => {
             this.props.updateGameCard(data)
-        })
+        }
+        )
     }
 
     render() {

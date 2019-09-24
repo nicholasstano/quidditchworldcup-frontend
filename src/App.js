@@ -17,13 +17,15 @@ export class App extends React.Component {
     weeklyGames: [],
     regular_season_games: [],
     allTeams: [],
-    allPlayers: []
+    allPlayers: [],
+    selectedWeek: null,
+    option: "Week 1"
   }
 
   componentDidMount() {
     fetch(`http://localhost:3000/weeks`)
       .then(res => res.json())
-      .then(weeks => this.setState({ weeklyGames: weeks }))
+      .then(weeks => this.setState({ weeklyGames: weeks, selectedWeek: weeks[0] }))
     fetch(`http://localhost:3000/teams`)
       .then(res => res.json())
       .then(teams => this.setState({ allTeams: teams }))
@@ -32,10 +34,23 @@ export class App extends React.Component {
       .then(players => this.setState({ allPlayers: players }))
   }
 
+  changeWeek = (event) => {
+    if (event.value) {
+      let weekGames = this.state.weeklyGames.filter(week => week.name === event.value)
+      this.setState({ selectedWeek: weekGames[0], option: event.value })
+    }
+  }
+
+  updateGameCard = (data) => {
+    const newGameWeek = data.teamInfo
+    let updatedWeek = this.state.selectedWeek.week_games.slice().map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
+    this.setState({ selectedWeek: { ...this.state.selectedWeek, week_games: updatedWeek } })
+  }
+
   render() {
     return (
       <div className="app">
-        <GameDisplay weeklyGames={this.state.weeklyGames} />
+        <GameDisplay weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} />
         <br />
         <NavBar />
         <Switch>
@@ -57,7 +72,7 @@ export class App extends React.Component {
             path="/schedule"
             render={() => {
               return (
-                <div><Schedule weeklyGames={this.state.weeklyGames} /></div>
+                <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} /></div>
               )
             }} />
           <Route
