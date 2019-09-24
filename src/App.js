@@ -19,7 +19,8 @@ export class App extends React.Component {
     allTeams: [],
     allPlayers: [],
     selectedWeek: null,
-    option: "Week 1"
+    option: "Week 1",
+    playoffTeams: []
   }
 
   componentDidMount() {
@@ -32,6 +33,9 @@ export class App extends React.Component {
     fetch(`http://localhost:3000/players`)
       .then(res => res.json())
       .then(players => this.setState({ allPlayers: players }))
+    fetch(`http://localhost:3000/playoff_games/sixteen`)
+      .then(res => res.json())
+      .then(teams => this.setState({ playoffTeams: teams }))
   }
 
   changeWeek = (event) => {
@@ -48,6 +52,7 @@ export class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.playoffTeams)
     return (
       <div className="app">
         <GameDisplay weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} />
@@ -93,7 +98,7 @@ export class App extends React.Component {
             path="/playoffs"
             render={() => {
               return (
-                <div><Playoffs weeklyGames={this.state.weeklyGames} /></div>
+                <div><Playoffs weeklyGames={this.state.weeklyGames} playoffTeams={this.state.playoffTeams} /></div>
               )
             }} />
           <Route

@@ -16,6 +16,12 @@
   align-items: center;
 }
 
+.round-of-sixteen img {
+  width: 5%;
+  height: auto;
+  border-style: solid;
+}
+
 .all-game-display {
   display: flex;
   overflow: auto;
