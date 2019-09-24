@@ -3,26 +3,32 @@ import React, { Component } from 'react'
 
 export class Playoffs extends Component {
 
-    state = {
-        teamsInHunt: null
-    }
+    // state = {
+    //     teamsInHunt: null
+    // }
 
-    regularSeasonEnd = () => {
-        if (this.props.weeklyGames.length > 0) {
-            if (this.props.weeklyGames[13].games_completed === true) {
-                fetch(`http://localhost:3000/weeks/top_sixteen`)
-                    .then(res => res.json())
-                    .then(teams => this.setState({ teamsInHunt: teams }))
-                console.log(this.state.teamsInHunt)
-            }
+    // regularSeasonEnd = () => {
+    //     if (this.props.weeklyGames.length > 0) {
+    //         if (this.props.weeklyGames[13].games_completed === true) {
+    //             fetch(`http://localhost:3000/weeks/top_sixteen`)
+    //                 .then(res => res.json())
+    //                 .then(teams => this.setState({ teamsInHunt: teams }))
+    //             console.log(this.state.teamsInHunt)
+    //         }
+    //     }
+    // }
+
+    gamesCompleted = () => {
+        if (this.props.weeklyGames[13].games_completed === true) {
+            return this.props.weeklyGames[13].games_completed
         }
     }
+
 
     render() {
         return (
             <div>
-                {this.regularSeasonEnd()}
-                {!this.state.teamsInHunt === null ? <h1>Playoffs Coming Soon</h1> :
+                {this.gamesCompleted() ? <h1>Playoffs Coming Soon</h1> :
                     <div>
                         <h1>Playoff Bracket</h1>
                         <div className="brackets">
