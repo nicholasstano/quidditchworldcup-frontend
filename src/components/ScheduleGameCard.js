@@ -24,7 +24,6 @@ export class ScheduleGameCard extends Component {
                         <p><img src={this.props.home_flag} alt={this.props.home_name} />  {this.props.home_name}: {this.props.home_score}</p>
                         <p><b>{this.props.snitch_caught_by}</b> from the <b>{this.props.team_captured_snitch}</b> captured the snitch.</p>
                         <p><b>FINAL</b></p>
-
                     </div>
                     :
                     <div className="schedule-game-display">

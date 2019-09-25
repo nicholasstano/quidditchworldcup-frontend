@@ -47,10 +47,13 @@ export class App extends React.Component {
   }
 
   updateGameCard = (data) => {
-    console.log("AA", data)
     const newGameWeek = data.game
     let updatedWeek = this.state.selectedWeek.week_games.slice().map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
     this.setState({ selectedWeek: { ...this.state.selectedWeek, week_games: updatedWeek } })
+  }
+
+  updateWeek = (data) => {
+    this.setState({ selectedWeek: { ...this.state.selectedWeek, games_completed: data.games_completed } })
   }
 
   render() {
@@ -78,7 +81,7 @@ export class App extends React.Component {
             path="/schedule"
             render={() => {
               return (
-                <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} /></div>
+                <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} updateWeek={this.updateWeek} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} /></div>
               )
             }} />
           <Route
