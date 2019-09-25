@@ -75,13 +75,25 @@
 }
 
 .home {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-row: auto auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
   padding: 15px;
   margin: 15px;
   box-sizing: border-box;
+}
+
+.home-story {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+}
+
+.home-story img {
+  border-style: solid;
 }
 
 .standings {

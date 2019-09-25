@@ -9,6 +9,7 @@ import Standings from './containers/Standings'
 import Stats from '../src/containers/Stats'
 import Fantasy from '../src/containers/Fantasy'
 import Playoffs from '../src/containers/Playoffs'
+import Firebolt from '../src/components/Firebolt'
 import { withRouter, Switch, Route } from 'react-router-dom'
 
 export class App extends React.Component {
@@ -46,7 +47,8 @@ export class App extends React.Component {
   }
 
   updateGameCard = (data) => {
-    const newGameWeek = data.teamInfo
+    console.log("AA", data)
+    const newGameWeek = data.game
     let updatedWeek = this.state.selectedWeek.week_games.slice().map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
     this.setState({ selectedWeek: { ...this.state.selectedWeek, week_games: updatedWeek } })
   }
@@ -105,6 +107,13 @@ export class App extends React.Component {
             render={() => {
               return (
                 <div><Fantasy /></div>
+              )
+            }} />
+          <Route
+            path="/firebolt"
+            render={() => {
+              return (
+                <div><Firebolt /></div>
               )
             }} />
         </Switch >
