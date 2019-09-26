@@ -5,26 +5,6 @@ import ScheduleGameCard from '../components/ScheduleGameCard'
 
 export class Schedule extends Component {
 
-    // completedWeek = () => {
-    //     let gamesDone = this.props.selectedWeek.week_games.filter(game => game.completed === false)
-    //     if (gamesDone.length > 0) {
-    //         this.setState({ weekFinished: "Completed" })
-    //         fetch(`http://localhost:3000/weeks/${this.props.selectedWeek.id}`, {
-    //             method: "PATCH",
-    //             headers: {
-    //                 "Content-type": "application/json",
-    //                 "accept": "application/json"
-    //             },
-    //         }).then(res => res.json()).then(data => {
-    //             this.props.updateWeek(data)
-    //         }
-    //         )
-    //     }
-    //     else {
-    //         return this.setState({ weekFinished: "In Progress" })
-    //     }
-    // }
-
     renderSelectedWk = () => {
         return this.props.selectedWeek.week_games.map(game =>
             < ScheduleGameCard updateGameCard={this.props.updateGameCard} key={game.game_id} {...game} />)

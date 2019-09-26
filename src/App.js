@@ -34,9 +34,9 @@ export class App extends React.Component {
     fetch(`http://localhost:3000/players`)
       .then(res => res.json())
       .then(players => this.setState({ allPlayers: players }))
-    fetch(`http://localhost:3000/playoff_games/sixteen`)
-      .then(res => res.json())
-      .then(teams => this.setState({ playoffTeams: teams }))
+    // fetch(`http://localhost:3000/playoff_games/sixteen`)
+    //   .then(res => res.json())
+    //   .then(teams => this.setState({ playoffTeams: teams }))
   }
 
   changeWeek = (event) => {
@@ -50,10 +50,6 @@ export class App extends React.Component {
     const newGameWeek = data.game
     let updatedWeek = this.state.selectedWeek.week_games.slice().map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
     this.setState({ selectedWeek: { ...this.state.selectedWeek, week_games: updatedWeek } })
-  }
-
-  updateWeek = (data) => {
-    this.setState({ selectedWeek: { ...this.state.selectedWeek, games_completed: data.games_completed } })
   }
 
   render() {
@@ -81,7 +77,7 @@ export class App extends React.Component {
             path="/schedule"
             render={() => {
               return (
-                <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} updateWeek={this.updateWeek} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} /></div>
+                <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} /></div>
               )
             }} />
           <Route
