@@ -74,6 +74,12 @@
   border-style: solid;
 }
 
+.roundOne-game-display {
+  border-style: groove;
+  width: 170px;
+  height: 250px;
+}
+
 .home {
   display: grid;
   grid-template-columns: 20% 80%;
