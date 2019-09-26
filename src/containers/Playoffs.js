@@ -18,7 +18,7 @@ export class Playoffs extends Component {
 
     renderRoundOneGames = () => {
         return this.props.roundOneGames.map(game =>
-            <PlayoffGameCard {...game} key={game.teamInfo.playoff_game_id} />)
+            <PlayoffGameCard {...game} key={game.teamInfo.playoff_game_id} updateRoundOneGameCard={this.props.updateRoundOneGameCard} />)
     }
 
     render() {

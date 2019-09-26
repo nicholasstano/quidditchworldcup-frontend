@@ -1,6 +1,20 @@
 import React, { Component } from 'react'
 
 export class PlayoffGameCard extends Component {
+
+    sendRoundOneResults = () => {
+        fetch(`http://localhost:3000/playoff_games/${this.props.teamInfo.playoff_game_id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+                "accept": "application/json"
+            },
+        }).then(res => res.json()).then(data => {
+            this.props.updateRoundOneGameCard(data)
+        }
+        )
+    }
+
     render() {
         return (
             <div>
@@ -15,7 +29,7 @@ export class PlayoffGameCard extends Component {
                     <div className="roundOne-game-display">
                         <p><img src={this.props.teamInfo.away_flag} alt={this.props.teamInfo.away_name} />  {this.props.teamInfo.away_name}: {this.props.teamInfo.away_score}</p>
                         <p><img src={this.props.teamInfo.home_flag} alt={this.props.teamInfo.home_name} />  {this.props.teamInfo.home_name}: {this.props.teamInfo.home_score}</p>
-                        <button > View Result</button>
+                        <button onClick={this.sendRoundOneResults}> View Result</button>
                     </div>
                 }
             </div>
