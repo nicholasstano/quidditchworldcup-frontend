@@ -6,15 +6,15 @@ export class NavBar extends Component {
     render() {
         return (
             <div className="navbar">
-                <Link to="/home"> 431st Qudditich World Cup</Link>
-                <Link to="/rosters">Rosters</Link>
-                <Link to="/schedule" >Schedule</Link>
-                <Link to="/stats">Player Stats</Link>
-                <Link to="/standings">Standings</Link>
-                <Link to="/playoffs">Playoffs</Link>
-                <Link to="/fantasy">Weekly Pick Em</Link>
-                <Link to="/fantasy">Eliminator Pick Em</Link>
-                <Link to="/fantasy">Daily Fantasy</Link>
+                <Link className="navbar-link" to="/home"> 431st Qudditich World Cup</Link>
+                <Link className="navbar-link" to="/rosters">Rosters</Link>
+                <Link className="navbar-link" to="/schedule" >Schedule</Link>
+                <Link className="navbar-link" to="/stats">Player Stats</Link>
+                <Link className="navbar-link" to="/standings">Standings</Link>
+                <Link className="navbar-link" to="/playoffs">Playoffs</Link>
+                <Link className="navbar-link" to="/fantasy">Weekly Pick Em</Link>
+                <Link className="navbar-link" to="/fantasy">Eliminator Pick Em</Link>
+                <Link className="navbar-link" to="/fantasy">Daily Fantasy</Link>
             </div>
         )
     }

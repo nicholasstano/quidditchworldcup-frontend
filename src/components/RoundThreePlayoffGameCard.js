@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-export class PlayoffGameCard extends Component {
+export class RoundThreePlayoffGameCard extends Component {
 
-    sendRoundOneResults = () => {
+    sendRoundThreeResults = () => {
         fetch(`http://localhost:3000/playoff_games/${this.props.teamInfo.playoff_game_id}`, {
             method: "PATCH",
             headers: {
@@ -10,7 +10,7 @@ export class PlayoffGameCard extends Component {
                 "accept": "application/json"
             },
         }).then(res => res.json()).then(data => {
-            this.props.updateRoundOneGameCard(data)
+            this.props.updateRoundThreeGameCard(data)
         }
         )
     }
@@ -19,17 +19,17 @@ export class PlayoffGameCard extends Component {
         return (
             <div>
                 {this.props.teamInfo.game_completed ?
-                    <div className="roundOne-game-display">
+                    <div className="roundThree-game-display">
                         <p><img src={this.props.teamInfo.away_flag} alt={this.props.teamInfo.away_name} />  {this.props.teamInfo.away_name}: {this.props.teamInfo.away_score}</p>
                         <p><img src={this.props.teamInfo.home_flag} alt={this.props.teamInfo.home_name} />  {this.props.teamInfo.home_name}: {this.props.teamInfo.home_score}</p>
                         <p><b>{this.props.teamInfo.snitch_caught_by}</b> from the <b>{this.props.teamInfo.team_captured_snitch}</b> captured the snitch.</p>
                         <p><b>FINAL</b></p>
                     </div>
                     :
-                    <div className="roundOne-game-display">
+                    <div className="roundThree-game-display">
                         <p><img src={this.props.teamInfo.away_flag} alt={this.props.teamInfo.away_name} />  {this.props.teamInfo.away_name}: {this.props.teamInfo.away_score}</p>
                         <p><img src={this.props.teamInfo.home_flag} alt={this.props.teamInfo.home_name} />  {this.props.teamInfo.home_name}: {this.props.teamInfo.home_score}</p>
-                        <button onClick={this.sendRoundOneResults}> View Result</button>
+                        <button onClick={this.sendRoundThreeResults}> View Result</button>
                     </div>
                 }
             </div>
@@ -37,4 +37,4 @@ export class PlayoffGameCard extends Component {
     }
 }
 
-export default PlayoffGameCard
+export default RoundThreePlayoffGameCard

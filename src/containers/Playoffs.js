@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import PlayoffGameCard from '../components/PlayoffGameCard'
+import RoundOnePlayoffGameCard from '../components/RoundOnePlayoffGameCard'
+import RoundTwoPlayoffGameCard from '../components/RoundTwoPlayoffGameCard'
+import RoundThreePlayoffGameCard from '../components/RoundThreePlayoffGameCard'
+import RoundFourPlayoffGameCard from '../components/RoundFourPlayoffGameCard'
+import WinnerPlayoffGameCard from '../components/WinnerPlayoffGameCard'
 
 export class Playoffs extends Component {
 
@@ -10,15 +14,73 @@ export class Playoffs extends Component {
                 "Content-type": "application/json",
                 "accept": "application/json"
             },
-        }).
-            then(res => res.json()).
-            then(data => { this.props.updateRoundOneGames(data) }
+        })
+            .then(res => res.json())
+            .then(data => { this.props.updateRoundOneGames(data) }
+            )
+        fetch(`http://localhost:3000/playoff_games/roundTwoGames`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "accept": "application/json"
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.props.updateRoundTwoGames(data)
+            }
+            )
+        fetch(`http://localhost:3000/playoff_games/roundThreeGames`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "accept": "application/json"
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.props.updateRoundThreeGames(data)
+            }
+            )
+        fetch(`http://localhost:3000/playoff_games/roundFourGames`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "accept": "application/json"
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.props.updateRoundFourGames(data)
+            }
             )
     }
 
     renderRoundOneGames = () => {
         return this.props.roundOneGames.map(game =>
-            <PlayoffGameCard {...game} key={game.teamInfo.playoff_game_id} updateRoundOneGameCard={this.props.updateRoundOneGameCard} />)
+            <RoundOnePlayoffGameCard {...game} key={game.teamInfo.playoff_game_id} updateRoundOneGameCard={this.props.updateRoundOneGameCard} />)
+    }
+
+    renderRoundTwoGames = () => {
+        return this.props.roundTwoGames.map(game =>
+            <RoundTwoPlayoffGameCard {...game} key={game.teamInfo.playoff_game_id} updateRoundTwoGameCard={this.props.updateRoundTwoGameCard} />)
+    }
+
+    renderRoundThreeGames = () => {
+        return this.props.roundThreeGames.map(game =>
+            <RoundThreePlayoffGameCard {...game} key={game.teamInfo.playoff_game_id} updateRoundThreeGameCard={this.props.updateRoundThreeGameCard} />)
+    }
+
+    renderRoundFourGames = () => {
+        return this.props.roundFourGames.map(game =>
+            <RoundFourPlayoffGameCard {...game} key={game.teamInfo.playoff_game_id} updateRoundFourGameCard={this.props.updateRoundFourGameCard} />)
+    }
+
+    renderWinner = () => {
+        return this.props.winner.map(team =>
+            // console.log(team)
+            < WinnerPlayoffGameCard {...team} key={team.id} />
+        )
     }
 
     render() {
@@ -26,10 +88,9 @@ export class Playoffs extends Component {
             <div>
                 {this.props.weeklyGames === null ? <h1>Loading</h1> :
                     <div>
-                        <h1>Playoff Bracket </h1>
                         <div className="brackets">
-                            <h5>Round of Sixteen</h5>
-                            <h5>Round of Eight</h5>
+                            <h5>Round One</h5>
+                            <h5>Quarter Finals</h5>
                             <h5>Semi Finals</h5>
                             <h5>Quidditch World Cup Finals</h5>
                             <h5>Winner</h5>
@@ -39,46 +100,27 @@ export class Playoffs extends Component {
                                 <div className="round-of-sixteen">
                                     {this.renderRoundOneGames()}
                                 </div>
-                                : <p>Round 1</p>}
-                            {this.props.weeklyGames ?
+                                : ""}
+                            {this.props.roundTwoGames.length > 0 ?
                                 <div className="round-of-eight">
-                                    <p>#1 TeamNamePlaceHolder (Points)</p>
-                                    <p>#15 TeamNamePlaceHolder (Points)</p>
-                                    <br />
-                                    <p>#1 TeamNamePlaceHolder (Points)</p>
-                                    <p>#15 TeamNamePlaceHolder (Points)</p>
-                                    <br />
-                                    <p>#1 TeamNamePlaceHolder (Points)</p>
-                                    <p>#15 TeamNamePlaceHolder (Points)</p>
-                                    <br />
-                                    <p>#1 TeamNamePlaceHolder (Points)</p>
-                                    <p>#15 TeamNamePlaceHolder (Points)</p>
-                                    <br />
+                                    {this.renderRoundTwoGames()}
                                 </div> :
-                                <p>Round 2</p>}
+                                ""}
                             {this.props.weeklyGames ?
                                 <div className="round-of-four">
-                                    <p>#1 TeamNamePlaceHolder (Points)</p>
-                                    <p>#15 TeamNamePlaceHolder (Points)</p>
-                                    <br />
-                                    <p>#1 TeamNamePlaceHolder (Points)</p>
-                                    <p>#15 TeamNamePlaceHolder (Points)</p>
-                                    <br />
+                                    {this.renderRoundThreeGames()}
                                 </div> :
-                                <p>Round 3</p>}
-                            {this.props.weeklyGames > 0 ?
+                                ""}
+                            {this.props.weeklyGames ?
                                 <div className="round-of-two">
-                                    <p>#1 TeamNamePlaceHolder (Points)</p>
-                                    <p>#15 TeamNamePlaceHolder (Points)</p>
-                                    <br />
+                                    {this.renderRoundFourGames()}
                                 </div> :
-                                <p>Round 4</p>}
-                            {this.props.weeklyGames > 0 ?
+                                ""}
+                            {this.props.weeklyGames ?
                                 <div className="winner">
-                                    <p>#1 TeamNamePlaceHolder (Points)</p>
-                                    <br />
+                                    {this.renderWinner()}
                                 </div> :
-                                <p>Round 5</p>}
+                                ""}
                         </div>
                     </div>
                 }

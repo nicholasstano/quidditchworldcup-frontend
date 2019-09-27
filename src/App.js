@@ -10,6 +10,7 @@ import Stats from '../src/containers/Stats'
 import Fantasy from '../src/containers/Fantasy'
 import Playoffs from '../src/containers/Playoffs'
 import Firebolt from '../src/components/Firebolt'
+import Shop from '../src/components/Shop'
 import { withRouter, Switch, Route } from 'react-router-dom'
 
 export class App extends React.Component {
@@ -22,7 +23,11 @@ export class App extends React.Component {
     selectedWeek: null,
     option: "Week 1",
     playoffTeams: [],
-    roundOneGames: []
+    roundOneGames: [],
+    roundTwoGames: [],
+    roundThreeGames: [],
+    roundFourGames: [],
+    winner: []
   }
 
   componentDidMount() {
@@ -35,6 +40,18 @@ export class App extends React.Component {
     fetch(`http://localhost:3000/players`)
       .then(res => res.json())
       .then(players => this.setState({ allPlayers: players }))
+    fetch(`http://localhost:3000/playoff_games/winner`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        "accept": "application/json"
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ winner: data })
+      }
+      )
   }
 
   changeWeek = (event) => {
@@ -56,8 +73,38 @@ export class App extends React.Component {
     this.setState({ roundOneGames: updatedRoundOne })
   }
 
+  updateRoundTwoGameCard = (data) => {
+    const completedGame = data
+    let updatedRoundTwo = this.state.roundTwoGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
+    this.setState({ roundTwoGames: updatedRoundTwo })
+  }
+
+  updateRoundThreeGameCard = (data) => {
+    const completedGame = data
+    let updatedRoundThree = this.state.roundThreeGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
+    this.setState({ roundThreeGames: updatedRoundThree })
+  }
+
+  updateRoundFourGameCard = (data) => {
+    const completedGame = data
+    let updatedRoundFour = this.state.roundFourGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
+    this.setState({ roundFourGames: updatedRoundFour })
+  }
+
   updateRoundOneGames = (data) => {
     this.setState({ roundOneGames: data })
+  }
+
+  updateRoundTwoGames = (data) => {
+    this.setState({ roundTwoGames: data })
+  }
+
+  updateRoundThreeGames = (data) => {
+    this.setState({ roundThreeGames: data })
+  }
+
+  updateRoundFourGames = (data) => {
+    this.setState({ roundFourGames: data })
   }
 
   render() {
@@ -71,7 +118,7 @@ export class App extends React.Component {
             path="/home"
             render={() => {
               return (
-                <div><Home /></div>
+                <div><Home winner={this.state.winner} /></div>
               )
             }} />
           <Route
@@ -106,7 +153,7 @@ export class App extends React.Component {
             path="/playoffs"
             render={() => {
               return (
-                <div><Playoffs weeklyGames={this.state.weeklyGames} roundOneGames={this.state.roundOneGames} updateRoundOneGames={this.updateRoundOneGames} updateRoundOneGameCard={this.updateRoundOneGameCard} /></div>
+                <div><Playoffs weeklyGames={this.state.weeklyGames} roundOneGames={this.state.roundOneGames} updateRoundOneGames={this.updateRoundOneGames} updateRoundOneGameCard={this.updateRoundOneGameCard} roundTwoGames={this.state.roundTwoGames} updateRoundTwoGames={this.updateRoundTwoGames} updateRoundTwoGameCard={this.updateRoundTwoGameCard} roundThreeGames={this.state.roundThreeGames} updateRoundThreeGames={this.updateRoundThreeGames} updateRoundThreeGameCard={this.updateRoundThreeGameCard} roundFourGames={this.state.roundFourGames} updateRoundFourGames={this.updateRoundFourGames} updateRoundFourGameCard={this.updateRoundFourGameCard} winner={this.state.winner} /></div>
               )
             }} />
           <Route
@@ -121,6 +168,13 @@ export class App extends React.Component {
             render={() => {
               return (
                 <div><Firebolt /></div>
+              )
+            }} />
+          <Route
+            path="/shop"
+            render={() => {
+              return (
+                <div><Shop /></div>
               )
             }} />
         </Switch >
