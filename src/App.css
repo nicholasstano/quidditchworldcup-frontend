@@ -61,6 +61,7 @@ a {
 
 .home-game-display {
   border-style: groove;
+  border-radius: 5%;
   width: 200px;
   height: 130px;
   justify-content: space-between
@@ -77,6 +78,7 @@ a {
 
 .date-display {
   border-style: groove;
+  border-radius: 12%;
   width: 200px;
   height: 130px;
   justify-content: center;
@@ -95,6 +97,7 @@ a {
 
 .schedule-game-display {
   border-style: groove;
+  border-radius: 5%;
   width: 420px;
   height: 200px;
 }
@@ -107,30 +110,35 @@ a {
 
 .roundOne-game-display {
   border-style: groove;
+  border-radius: 2.5%;
   width: 170px;
   height: 250px;
 }
 
 .roundTwo-game-display {
   border-style: groove;
+  border-radius: 2.5%;
   width: 170px;
   height: 506px;
 }
 
 .roundThree-game-display {
   border-style: groove;
+  border-radius: 2.5%;
   width: 170px;
   height: 1018px;
 }
 
 .roundFour-game-display {
   border-style: groove;
+  border-radius: 2.5%;
   width: 170px;
   height: 2042px;
 }
 
 .winner-game-display {
   border-style: groove;
+  border-radius: 2.5%;
   width: 170px;
   height: 2042px;
 }
