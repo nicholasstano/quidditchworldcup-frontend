@@ -22,7 +22,7 @@ export class ScheduleGameCard extends Component {
                     <div className="schedule-game-display">
                         <p><img src={this.props.away_flag} alt={this.props.away_name} />  {this.props.away_name}: {this.props.away_score}</p>
                         <p><img src={this.props.home_flag} alt={this.props.home_name} />  {this.props.home_name}: {this.props.home_score}</p>
-                        <p><b>{this.props.snitch_caught_by}</b> from <b>{this.props.team_captured_snitch}</b> captured the snitch.</p>
+                        <p><b>{this.props.snitch_caught_by}</b> of <b>{this.props.team_captured_snitch}</b> captured the snitch.</p>
                         <p><b>FINAL</b></p>
                     </div>
                     :

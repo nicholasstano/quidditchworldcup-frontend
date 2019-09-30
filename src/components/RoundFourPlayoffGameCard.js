@@ -22,7 +22,7 @@ export class RoundFourPlayoffGameCard extends Component {
                     <div className="roundFour-game-display">
                         <p><img src={this.props.teamInfo.away_flag} alt={this.props.teamInfo.away_name} />  {this.props.teamInfo.away_name}: {this.props.teamInfo.away_score}</p>
                         <p><img src={this.props.teamInfo.home_flag} alt={this.props.teamInfo.home_name} />  {this.props.teamInfo.home_name}: {this.props.teamInfo.home_score}</p>
-                        <p><b>{this.props.teamInfo.snitch_caught_by}</b> from the <b>{this.props.teamInfo.team_captured_snitch}</b> captured the snitch.</p>
+                        <p><b>{this.props.teamInfo.snitch_caught_by}</b> of <b>{this.props.teamInfo.team_captured_snitch}</b> captured the snitch.</p>
                         <p><b>FINAL</b></p>
                     </div>
                     :

@@ -11,6 +11,15 @@ export class Roster extends Component {
         option: ""
     }
 
+    componentDidMount() {
+        fetch(`http://localhost:3000/teams`)
+            .then(res => res.json())
+            .then(data => {
+                this.props.updateStandingsAndRosters(data)
+            }
+            )
+    }
+
     changeTeam = (event) => {
         if (event.value) {
             let team = this.props.allTeams.filter(team => team.name === event.value)

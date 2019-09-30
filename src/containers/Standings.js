@@ -11,11 +11,34 @@ export class Standings extends Component {
         option: "League Standings"
     }
 
+    componentDidMount() {
+        fetch(`http://localhost:3000/teams`)
+            .then(res => res.json())
+            .then(data => {
+                this.props.updateStandingsAndRosters(data)
+            }
+            )
+    }
+
     changeDivision = (event) => {
         if (event.value === "League Standings") {
             let allTeams = this.props.allTeams.map(team => team)
             this.setState({ filteredDivision: allTeams })
             this.setState({ option: "League Standings" })
+        }
+        else if (event.value === "Playoff Teams") {
+            let allTeams = this.props.allTeams.map(team => team)
+            let orderedTeams = allTeams.sort(function (teamA, teamB) {
+                let winner = teamB.wins - teamA.wins;
+                if (winner)
+                    return winner
+                let pointsForTie = teamB.points_for - teamA.points_for
+                if (pointsForTie)
+                    return pointsForTie
+            })
+            let playoffTeams = orderedTeams.slice(0, 16).map(team => team)
+            this.setState({ filteredDivision: playoffTeams })
+            this.setState({ option: "Playoff Teams" })
         }
         else if (event.value) {
             let divisionTeams = this.props.allTeams.filter(team => team.division === event.value).map(team => team)
@@ -27,7 +50,7 @@ export class Standings extends Component {
         let allTeams = this.props.allTeams.map(team => team)
 
         const options = [
-            'League Standings', 'Asia', 'The Americas and Oceania', "Europe", "Africa and Western Asia"
+            'League Standings', 'Playoff Teams', 'Asia', 'The Americas and Oceania', "Europe", "Africa and Western Asia"
         ]
 
         const columns = [{

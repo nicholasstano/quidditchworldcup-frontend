@@ -107,6 +107,14 @@ export class App extends React.Component {
     this.setState({ roundFourGames: data })
   }
 
+  updateStandingsAndRosters = (data) => {
+    this.setState({ allTeams: data })
+  }
+
+  updateStats = (data) => {
+    this.setState({ allPlayers: data })
+  }
+
   render() {
     return (
       <div className="app">
@@ -118,14 +126,14 @@ export class App extends React.Component {
             path="/home"
             render={() => {
               return (
-                <div><Home winner={this.state.winner} /></div>
+                <div><Home winner={this.state.winner} roundFourGames={this.state.roundFourGames} /></div>
               )
             }} />
           <Route
             path="/rosters"
             render={() => {
               return (
-                <div><Roster allTeams={this.state.allTeams} /></div>
+                <div><Roster allTeams={this.state.allTeams} updateStandingsAndRosters={this.updateStandingsAndRosters} /></div>
               )
             }} />
           <Route
@@ -139,14 +147,14 @@ export class App extends React.Component {
             path="/stats"
             render={() => {
               return (
-                <div><Stats allPlayers={this.state.allPlayers} /></div>
+                <div><Stats allPlayers={this.state.allPlayers} updateStats={this.updateStats} /></div>
               )
             }} />
           <Route
             path="/standings"
             render={() => {
               return (
-                <div><Standings allTeams={this.state.allTeams} /></div>
+                <div><Standings allTeams={this.state.allTeams} updateStandingsAndRosters={this.updateStandingsAndRosters} /></div>
               )
             }} />
           <Route

@@ -12,12 +12,11 @@ export class Home extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div className="home">
                 <div className="home-sidebar">
                     <h5>Stories</h5>
-                    {this.props.winner.length > 0 && this.props.winner[0].name ? <p><Link to="/shop">Buy 431st Quidditch Champion {this.props.winner[0].name} Merchandise</Link></p> : null}
+                    {this.props.roundFourGames.length > 0 && this.props.winner ? <p><Link to="/shop">Buy 431st Quidditch Champion {this.props.winner[0].name} Merchandise</Link></p> : null}
                     <p><Link to="/standings">431st Quidditch World Cup: The Teams who Made it</Link></p>
                     <p><Link to="/firebolt">Quidditch World Cup Teams are a Proud Partner of the Firebolt Broomstick</Link></p>
                     <p><Link to="/home">Recapping the 422nd Quidditch World Cup</Link></p>
@@ -25,7 +24,7 @@ export class Home extends Component {
 
                 </div>
                 <div>
-                    {this.props.winner.length > 0 && this.props.winner[0].name ?
+                    {this.props.roundFourGames.length > 0 && this.props.winner ?
                         <div className="home-story">
                             <h2>Your 431st Quidditch World Cup Champions: {this.props.winner[0].name}</h2>
                             <img src={this.props.winner[0].flag} alt={`${this.props.winner[0].name} flag`} />

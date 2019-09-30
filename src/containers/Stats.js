@@ -11,6 +11,15 @@ export class Stats extends Component {
         option: "Chaser"
     }
 
+    componentDidMount() {
+        fetch(`http://localhost:3000/players`)
+            .then(res => res.json())
+            .then(data => {
+                this.props.updateStats(data)
+            }
+            )
+    }
+
     changePosition = (event) => {
         if (event.value) {
             let position = this.props.allPlayers.filter(player => player.position === event.value)

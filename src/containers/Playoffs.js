@@ -116,7 +116,7 @@ export class Playoffs extends Component {
                                 </div> :
                                 <h5 className="bracket-header">Quidditch World Cup Finals</h5>
                             }
-                            {this.props.winner.length > 0 ?
+                            {this.props.winner ?
                                 <div className="winner">
                                     <h5 className="bracket-header">Winner</h5>
                                     {this.renderWinner()}
