@@ -21,7 +21,7 @@ export class Roster extends Component {
     render() {
         let firstTeam = []
         if (this.props.allTeams.length > 0) {
-            firstTeam = this.props.allTeams.filter(team => team.name === "Arab Republic of Egypt")[0]
+            firstTeam = this.props.allTeams.filter(team => team.name === "Argentina")[0]
         }
 
         const teamsNotAlphabetized = this.props.allTeams.map(team => team.name)
