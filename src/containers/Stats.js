@@ -8,7 +8,12 @@ export class Stats extends Component {
 
     state = {
         selectedPosition: null,
-        option: "Chaser"
+        option: "Chaser",
+        statsToggle: true,
+    }
+
+    toggleStats = () => {
+        this.setState({ statsToggle: !this.state.statsToggle })
     }
 
     componentDidMount() {
@@ -34,7 +39,7 @@ export class Stats extends Component {
             'Chaser', 'Keeper', 'Seeker', 'Beater'
         ]
 
-        const columns = [{
+        const regularSeasonColumns = [{
             Header: 'Name',
             accessor: 'name'
         },
@@ -63,26 +68,70 @@ export class Stats extends Component {
             minWidth: 50
         }
         ]
+        const playoffColumns = [{
+            Header: 'Name',
+            accessor: 'name'
+        },
+        {
+            Header: 'Team',
+            accessor: 'team_name'
+        },
+        {
+            Header: 'Quaffle Scored',
+            accessor: 'quaffle_scored_playoffs',
+            minWidth: 50
+        },
+        {
+            Header: 'Snitch Captured',
+            accessor: 'snitch_captured_playoffs',
+            minWidth: 50
+        },
+        {
+            Header: 'Quaffle Saved',
+            accessor: 'quaffle_saved_playoffs',
+            minWidth: 50
+        },
+        {
+            Header: 'Bludgers Smashed',
+            accessor: 'bludgers_smashed_playoffs',
+            minWidth: 50
+        }
+        ]
+
         return (
             <div className="stats">
+                <br />
                 <Dropdown options={options} onChange={this.changePosition} value={`Position: ${this.state.option}`} placeholder="Select an option" />
                 <br />
                 {this.state.selectedPosition === null ?
                     (
                         <ReactTable
                             data={chasers}
-                            columns={columns}
+                            columns={regularSeasonColumns}
                             defaultPageSize={96}
                             defaultSorted={[{ id: "quaffle_scored", desc: true }, { id: "snitch_captured", desc: true }, { id: "quaffle_saved", desc: true }, { id: "bludgers_smashed", desc: true }, { id: "name", desc: false }]}
                         />
                     ) :
                     (
-                        <ReactTable
-                            data={this.state.selectedPosition}
-                            columns={columns}
-                            defaultPageSize={96}
-                            defaultSorted={[{ id: "quaffle_scored", desc: true }, { id: "snitch_captured", desc: true }, { id: "quaffle_saved", desc: true }, { id: "bludgers_smashed", desc: true }, { id: "name", desc: false }]}
-                        />
+                        <div>
+                            <div className="buttons">
+                                {this.state.statsToggle ? <button onClick={this.toggleStats}>Playoff Stats</button> :
+                                    <button onClick={this.toggleStats}>Regular Season Stats</button>}
+                            </div>
+                            {this.state.statsToggle ?
+                                <ReactTable
+                                    data={this.state.selectedPosition}
+                                    columns={regularSeasonColumns}
+                                    defaultPageSize={96}
+                                    defaultSorted={[{ id: "quaffle_scored", desc: true }, { id: "snitch_captured", desc: true }, { id: "quaffle_saved", desc: true }, { id: "bludgers_smashed", desc: true }, { id: "name", desc: false }]}
+                                /> :
+                                <ReactTable
+                                    data={this.state.selectedPosition}
+                                    columns={playoffColumns}
+                                    defaultPageSize={96}
+                                    defaultSorted={[{ id: "quaffle_scored_playoffs", desc: true }, { id: "snitch_captured_playoffs", desc: true }, { id: "quaffle_saved_playoffs", desc: true }, { id: "bludgers_smashed_playoffs", desc: true }, { id: "name", desc: false }]}
+                                />}
+                        </div>
                     )
                 }
             </div>
