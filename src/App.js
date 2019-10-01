@@ -27,7 +27,7 @@ export class App extends React.Component {
     roundTwoGames: [],
     roundThreeGames: [],
     roundFourGames: [],
-    winner: []
+    winner: null
   }
 
   componentDidMount() {
@@ -40,18 +40,6 @@ export class App extends React.Component {
     fetch(`http://localhost:3000/players`)
       .then(res => res.json())
       .then(players => this.setState({ allPlayers: players }))
-    fetch(`http://localhost:3000/playoff_games/winner`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        "accept": "application/json"
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ winner: data })
-      }
-      )
   }
 
   changeWeek = (event) => {
@@ -105,6 +93,10 @@ export class App extends React.Component {
 
   updateRoundFourGames = (data) => {
     this.setState({ roundFourGames: data })
+  }
+
+  updateWinner = (data) => {
+    this.setState({ winner: data })
   }
 
   updateStandingsAndRosters = (data) => {
@@ -161,7 +153,7 @@ export class App extends React.Component {
             path="/playoffs"
             render={() => {
               return (
-                <div><Playoffs weeklyGames={this.state.weeklyGames} roundOneGames={this.state.roundOneGames} updateRoundOneGames={this.updateRoundOneGames} updateRoundOneGameCard={this.updateRoundOneGameCard} roundTwoGames={this.state.roundTwoGames} updateRoundTwoGames={this.updateRoundTwoGames} updateRoundTwoGameCard={this.updateRoundTwoGameCard} roundThreeGames={this.state.roundThreeGames} updateRoundThreeGames={this.updateRoundThreeGames} updateRoundThreeGameCard={this.updateRoundThreeGameCard} roundFourGames={this.state.roundFourGames} updateRoundFourGames={this.updateRoundFourGames} updateRoundFourGameCard={this.updateRoundFourGameCard} winner={this.state.winner} /></div>
+                <div><Playoffs weeklyGames={this.state.weeklyGames} roundOneGames={this.state.roundOneGames} updateRoundOneGames={this.updateRoundOneGames} updateRoundOneGameCard={this.updateRoundOneGameCard} roundTwoGames={this.state.roundTwoGames} updateRoundTwoGames={this.updateRoundTwoGames} updateRoundTwoGameCard={this.updateRoundTwoGameCard} roundThreeGames={this.state.roundThreeGames} updateRoundThreeGames={this.updateRoundThreeGames} updateRoundThreeGameCard={this.updateRoundThreeGameCard} roundFourGames={this.state.roundFourGames} updateRoundFourGames={this.updateRoundFourGames} updateRoundFourGameCard={this.updateRoundFourGameCard} winner={this.state.winner} updateWinner={this.updateWinner} /></div>
               )
             }} />
           <Route

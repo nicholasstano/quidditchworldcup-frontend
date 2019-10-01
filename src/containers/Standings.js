@@ -35,7 +35,8 @@ export class Standings extends Component {
                 let pointsForTie = teamB.points_for - teamA.points_for
                 if (pointsForTie)
                     return pointsForTie
-            })
+            }
+            )
             let playoffTeams = orderedTeams.slice(0, 16).map(team => team)
             this.setState({ filteredDivision: playoffTeams })
             this.setState({ option: "Playoff Teams" })

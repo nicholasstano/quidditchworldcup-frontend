@@ -54,6 +54,18 @@ export class Playoffs extends Component {
                 this.props.updateRoundFourGames(data)
             }
             )
+        fetch(`http://localhost:3000/playoff_games/winner`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "accept": "application/json"
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.props.updateWinner(data)
+            }
+            )
     }
 
     renderRoundOneGames = () => {

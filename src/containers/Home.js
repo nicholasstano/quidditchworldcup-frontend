@@ -5,18 +5,19 @@ export class Home extends Component {
 
     roster = () => {
         return this.props.winner[0].player_roster.map(player =>
-            <div id={player.id}>
+            <div key={player.id}>
                 <b>{player.position}</b>: {player.name}
             </div>
         )
     }
 
     render() {
+        console.log('winner', this.props.winner)
+        console.log('RD 45 GAMES', this.props.roundFourGames)
         return (
             <div className="home">
                 <div className="home-sidebar">
                     <h5>Stories</h5>
-                    {this.props.roundFourGames.length > 0 && this.props.winner ? <p><Link to="/shop">Buy 431st Quidditch Champion {this.props.winner[0].name} Merchandise</Link></p> : null}
                     <p><Link to="/standings">431st Quidditch World Cup: The Teams who Made it</Link></p>
                     <p><Link to="/firebolt">Quidditch World Cup Teams are a Proud Partner of the Firebolt Broomstick</Link></p>
                     <p><Link to="/home">Recapping the 422nd Quidditch World Cup</Link></p>
@@ -27,8 +28,9 @@ export class Home extends Component {
                     {this.props.roundFourGames.length > 0 && this.props.winner ?
                         <div className="home-story">
                             <h2>Your 431st Quidditch World Cup Champions: {this.props.winner[0].name}</h2>
+                            <p><Link to="/shop">Buy {this.props.winner[0].name} Championship Merchandise</Link></p>
                             <img src={this.props.winner[0].flag} alt={`${this.props.winner[0].name} flag`} />
-                            <p>{this.roster()}</p>
+                            <div>{this.roster()}</div>
 
                         </div>
                         :
