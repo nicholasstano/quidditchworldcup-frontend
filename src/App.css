@@ -7,7 +7,30 @@ a {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+.teamsWhoMadeItContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.teamsWhoMadeIt {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+
+.teamsWhoMadeItImg {
+  width: 75%;
+  height: auto;
+  border-style: solid;
+}
+
+.recap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .navbar {
   display: flex;
   justify-content: space-evenly;

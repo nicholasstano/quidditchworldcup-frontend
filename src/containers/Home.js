@@ -16,9 +16,9 @@ export class Home extends Component {
             <div className="home">
                 <div className="home-sidebar">
                     <h5>Stories</h5>
-                    <p><Link to="/standings">431st Quidditch World Cup: The Teams who Made it</Link></p>
+                    <p><Link to="/teamswhomadeit">431st Quidditch World Cup: The Teams who Made it</Link></p>
                     <p><Link to="/firebolt">Quidditch World Cup Teams are a Proud Partner of the Firebolt Broomstick</Link></p>
-                    <p><Link to="/home">Recapping the 422nd Quidditch World Cup</Link></p>
+                    <p><Link to="/fourhundredtwentytwo">Recapping the 422nd Quidditch World Cup</Link></p>
                     <p><Link to="/stats">Tournament Statistical Leaders</Link></p>
 
                 </div>

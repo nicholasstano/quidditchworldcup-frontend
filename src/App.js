@@ -11,6 +11,8 @@ import Fantasy from '../src/containers/Fantasy'
 import Playoffs from '../src/containers/Playoffs'
 import Firebolt from '../src/components/Firebolt'
 import Shop from './components/Shop'
+import FourHundredTwentyTwo from './components/FourHundredTwentyTwo'
+import TeamsWhoMadeIt from './containers/TeamsWhoMadeIt'
 import { withRouter, Switch, Route } from 'react-router-dom'
 
 export class App extends React.Component {
@@ -177,6 +179,20 @@ export class App extends React.Component {
             render={() => {
               return (
                 <div><Shop /></div>
+              )
+            }} />
+          <Route
+            path="/fourhundredtwentytwo"
+            render={() => {
+              return (
+                <div><FourHundredTwentyTwo /></div>
+              )
+            }} />
+          <Route
+            path="/teamswhomadeit"
+            render={() => {
+              return (
+                <div><TeamsWhoMadeIt teams={this.state.allTeams} /></div>
               )
             }} />
         </Switch >
