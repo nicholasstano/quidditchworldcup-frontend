@@ -9,7 +9,7 @@ export class Playoffs extends Component {
 
     componentDidMount() {
         fetch(`http://localhost:3000/playoff_games/roundOneGames`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-type": "application/json",
                 "accept": "application/json"
@@ -19,7 +19,7 @@ export class Playoffs extends Component {
             .then(data => { this.props.updateRoundOneGames(data) }
             )
         fetch(`http://localhost:3000/playoff_games/roundTwoGames`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-type": "application/json",
                 "accept": "application/json"
@@ -31,7 +31,7 @@ export class Playoffs extends Component {
             }
             )
         fetch(`http://localhost:3000/playoff_games/roundThreeGames`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-type": "application/json",
                 "accept": "application/json"
@@ -43,7 +43,7 @@ export class Playoffs extends Component {
             }
             )
         fetch(`http://localhost:3000/playoff_games/roundFourGames`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-type": "application/json",
                 "accept": "application/json"
@@ -55,7 +55,7 @@ export class Playoffs extends Component {
             }
             )
         fetch(`http://localhost:3000/playoff_games/winner`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-type": "application/json",
                 "accept": "application/json"
@@ -107,7 +107,7 @@ export class Playoffs extends Component {
                                 </div>
                                 : <h5 className="bracket-header">Round One</h5>
                             }
-                            {this.props.roundTwoGames.length > 0 ?
+                            {this.props.roundTwoGames || this.props.roundTwoGames.length > 0 ?
                                 <div className="round-of-eight">
                                     <h5 className="bracket-header">Quarter Finals</h5>
                                     {this.renderRoundTwoGames()}

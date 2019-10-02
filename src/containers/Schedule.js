@@ -11,6 +11,7 @@ export class Schedule extends Component {
     }
 
     render() {
+        console.log(this.props.selectedWeek)
         let weekOneGameCards = []
         if (this.props.weeklyGames.length > 0) {
             let weekOneGames = this.props.weeklyGames.filter(week => week.name === "Week 1")
@@ -20,8 +21,7 @@ export class Schedule extends Component {
 
         const options = this.props.weeklyGames.map(week => week.name)
         return (
-
-            <div onClick={this.props.changeWeek} className="schedule-with-dropdown">
+            < div onClick={this.props.changeWeek} className="schedule-with-dropdown" >
                 <Dropdown options={options} onChange={this.props.changeWeek} value={this.props.option} placeholder="Select an option" />
                 <br />
                 <h1>
