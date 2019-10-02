@@ -12,8 +12,6 @@ export class Home extends Component {
     }
 
     render() {
-        console.log('winner', this.props.winner)
-        console.log('RD 45 GAMES', this.props.roundFourGames)
         return (
             <div className="home">
                 <div className="home-sidebar">

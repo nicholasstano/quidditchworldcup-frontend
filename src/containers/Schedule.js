@@ -11,7 +11,6 @@ export class Schedule extends Component {
     }
 
     render() {
-        console.log(this.props.selectedWeek)
         let weekOneGameCards = []
         if (this.props.weeklyGames.length > 0) {
             let weekOneGames = this.props.weeklyGames.filter(week => week.name === "Week 1")

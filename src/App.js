@@ -10,7 +10,7 @@ import Stats from '../src/containers/Stats'
 import Fantasy from '../src/containers/Fantasy'
 import Playoffs from '../src/containers/Playoffs'
 import Firebolt from '../src/components/Firebolt'
-import Shop from '../src/components/Shop'
+import Shop from './components/Shop'
 import { withRouter, Switch, Route } from 'react-router-dom'
 
 export class App extends React.Component {
@@ -52,7 +52,9 @@ export class App extends React.Component {
   updateGameCard = (data) => {
     const newGameWeek = data.game
     let updatedWeek = this.state.selectedWeek.week_games.slice().map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
-    this.setState({ selectedWeek: { ...this.state.selectedWeek, week_games: updatedWeek } })
+    const newUpdatedWeek = { ...this.state.selectedWeek, week_games: updatedWeek }
+    const newWeeklyGames = this.state.weeklyGames.map(wg => wg.id === this.state.selectedWeek.id ? newUpdatedWeek : wg)
+    this.setState({ selectedWeek: newUpdatedWeek, weeklyGames: newWeeklyGames })
   }
 
   updateRoundOneGameCard = (data) => {
