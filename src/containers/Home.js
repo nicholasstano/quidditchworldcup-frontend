@@ -25,9 +25,11 @@ export class Home extends Component {
                 <div>
                     {this.props.roundFourGames.length > 0 && (this.props.winner && this.props.winner.length > 0) ?
                         <div className="home-story">
-                            <h2>Your 431st Quidditch World Cup Champions: {this.props.winner[0].name}</h2>
+                            <h2>431st Quidditch World Cup Champions:</h2>
+                            <h1>{this.props.winner[0].name}</h1>
                             <p><Link to="/shop">Buy {this.props.winner[0].name} Championship Merchandise</Link></p>
                             <img src={this.props.winner[0].flag} alt={`${this.props.winner[0].name} flag`} />
+                            <br />
                             <div>{this.roster()}</div>
 
                         </div>
