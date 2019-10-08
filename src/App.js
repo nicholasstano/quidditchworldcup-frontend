@@ -35,7 +35,16 @@ export class App extends React.Component {
   componentDidMount() {
     fetch(`http://localhost:3000/weeks`)
       .then(res => res.json())
-      .then(weeks => this.setState({ weeklyGames: weeks, selectedWeek: weeks[0] }))
+      .then(weeks => {
+
+        let completedWeek = weeks.find(week => week.games_completed === false)
+        if (completedWeek) {
+          this.setState({ weeklyGames: weeks, selectedWeek: completedWeek, option: completedWeek.name })
+        }
+        else {
+          this.setState({ weeklyGames: weeks, selectedWeek: weeks[0] })
+        }
+      })
     fetch(`http://localhost:3000/teams`)
       .then(res => res.json())
       .then(teams => this.setState({ allTeams: teams }))

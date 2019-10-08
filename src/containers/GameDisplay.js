@@ -14,7 +14,13 @@ export class GameDisplay extends Component {
         return (
             <div className="all-game-display">
                 <div className="date-display">
-                    <p>{this.props.selectedWeek === null ? "Loading" : this.props.selectedWeek.date}</p>
+                    {this.props.selectedWeek === null ? "Loading" : <div className="weekNumberDate">
+                        <p>
+                            {this.props.selectedWeek.name}:
+                        </p>
+                        {this.props.selectedWeek.date}
+                    </div>
+                    }
                 </div>
                 {this.renderSelectedWk()}
             </div>

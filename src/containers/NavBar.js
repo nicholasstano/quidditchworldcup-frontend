@@ -6,7 +6,7 @@ export class NavBar extends Component {
     render() {
         return (
             <div className="navbar">
-                <Link className="navbar-link" to="/home"> 431st Qudditich World Cup</Link>
+                <Link className="navbar-link" to="/home">QuidditchWorldCup.com</Link>
                 <Link className="navbar-link" to="/rosters">Rosters</Link>
                 <Link className="navbar-link" to="/schedule" >Schedule</Link>
                 <Link className="navbar-link" to="/stats">Player Stats</Link>

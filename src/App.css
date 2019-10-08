@@ -19,6 +19,13 @@ a {
   grid-template-columns: 25% 25% 25% 25%;
 }
 
+.weekNumberDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .teamsWhoMadeItImg {
   width: 75%;
   height: auto;

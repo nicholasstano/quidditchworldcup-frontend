@@ -7,7 +7,10 @@ export class Schedule extends Component {
 
     renderSelectedWk = () => {
         return this.props.selectedWeek.week_games.map(game =>
-            < ScheduleGameCard updateGameCard={this.props.updateGameCard} key={game.game_id} {...game} />)
+
+            < ScheduleGameCard updateGameCard={this.props.updateGameCard} key={game.game_id} {...game} />
+
+        )
     }
 
     render() {
@@ -24,9 +27,13 @@ export class Schedule extends Component {
                 <Dropdown options={options} onChange={this.props.changeWeek} value={this.props.option} placeholder="Select an option" />
                 <br />
                 <h1>
-                    {this.props.selectedWeek === null ?
-                        <div>Week 1 Games </div> :
-                        <div>{this.props.option} </div>}
+                    {this.props.selectedWeek === null || this.props.selectedWeek.length > 0 ?
+                        <div>Loading</div> :
+                        <div>{this.props.option}
+                            <h5>
+                                {this.props.selectedWeek.week_games.filter(game => game.game_completed === true).length} / 16 Games Final
+                        </h5>
+                        </div>}
                 </h1>
                 <br />
                 <div className="schedule">
