@@ -36,7 +36,6 @@ export class App extends React.Component {
     fetch(`http://localhost:3000/weeks`)
       .then(res => res.json())
       .then(weeks => {
-
         let completedWeek = weeks.find(week => week.games_completed === false)
         if (completedWeek) {
           this.setState({ weeklyGames: weeks, selectedWeek: completedWeek, option: completedWeek.name })

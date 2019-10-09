@@ -7,9 +7,7 @@ export class Schedule extends Component {
 
     renderSelectedWk = () => {
         return this.props.selectedWeek.week_games.map(game =>
-
             < ScheduleGameCard updateGameCard={this.props.updateGameCard} key={game.game_id} {...game} />
-
         )
     }
 
