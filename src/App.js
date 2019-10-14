@@ -24,12 +24,12 @@ export class App extends React.Component {
     allPlayers: [],
     selectedWeek: null,
     option: "Week 1",
-    playoffTeams: [],
     roundOneGames: [],
     roundTwoGames: [],
     roundThreeGames: [],
     roundFourGames: [],
-    winner: null
+    winner: null,
+    playoffGames: []
   }
 
   componentDidMount() {
@@ -50,6 +50,9 @@ export class App extends React.Component {
     fetch(`http://localhost:3000/players`)
       .then(res => res.json())
       .then(players => this.setState({ allPlayers: players }))
+    fetch(`http://localhost:3000/playoff_games`)
+      .then(res => res.json())
+      .then(playoffGames => this.setState({ playoffGames: playoffGames }))
   }
 
   changeWeek = (event) => {
@@ -70,25 +73,25 @@ export class App extends React.Component {
   updateRoundOneGameCard = (data) => {
     const completedGame = data
     let updatedRoundOne = this.state.roundOneGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
-    this.setState({ roundOneGames: updatedRoundOne })
+    this.setState({ roundOneGames: updatedRoundOne, playoffGames: updatedRoundOne })
   }
 
   updateRoundTwoGameCard = (data) => {
     const completedGame = data
     let updatedRoundTwo = this.state.roundTwoGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
-    this.setState({ roundTwoGames: updatedRoundTwo })
+    this.setState({ roundTwoGames: updatedRoundTwo, playoffGames: updatedRoundTwo })
   }
 
   updateRoundThreeGameCard = (data) => {
     const completedGame = data
     let updatedRoundThree = this.state.roundThreeGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
-    this.setState({ roundThreeGames: updatedRoundThree })
+    this.setState({ roundThreeGames: updatedRoundThree, playoffGames: updatedRoundThree })
   }
 
   updateRoundFourGameCard = (data) => {
     const completedGame = data
     let updatedRoundFour = this.state.roundFourGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
-    this.setState({ roundFourGames: updatedRoundFour })
+    this.setState({ roundFourGames: updatedRoundFour, playoffGames: updatedRoundFour })
   }
 
   updateRoundOneGames = (data) => {
@@ -122,88 +125,92 @@ export class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <GameDisplay weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} />
-        <br />
-        <NavBar />
-        <Switch>
-          <Route
-            path="/home"
-            render={() => {
-              return (
-                <div><Home winner={this.state.winner} roundFourGames={this.state.roundFourGames} /></div>
-              )
-            }} />
-          <Route
-            path="/rosters"
-            render={() => {
-              return (
-                <div><Roster allTeams={this.state.allTeams} updateStandingsAndRosters={this.updateStandingsAndRosters} /></div>
-              )
-            }} />
-          <Route
-            path="/schedule"
-            render={() => {
-              return (
-                <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} /></div>
-              )
-            }} />
-          <Route
-            path="/stats"
-            render={() => {
-              return (
-                <div><Stats allPlayers={this.state.allPlayers} updateStats={this.updateStats} /></div>
-              )
-            }} />
-          <Route
-            path="/standings"
-            render={() => {
-              return (
-                <div><Standings allTeams={this.state.allTeams} updateStandingsAndRosters={this.updateStandingsAndRosters} /></div>
-              )
-            }} />
-          <Route
-            path="/playoffs"
-            render={() => {
-              return (
-                <div><Playoffs weeklyGames={this.state.weeklyGames} roundOneGames={this.state.roundOneGames} updateRoundOneGames={this.updateRoundOneGames} updateRoundOneGameCard={this.updateRoundOneGameCard} roundTwoGames={this.state.roundTwoGames} updateRoundTwoGames={this.updateRoundTwoGames} updateRoundTwoGameCard={this.updateRoundTwoGameCard} roundThreeGames={this.state.roundThreeGames} updateRoundThreeGames={this.updateRoundThreeGames} updateRoundThreeGameCard={this.updateRoundThreeGameCard} roundFourGames={this.state.roundFourGames} updateRoundFourGames={this.updateRoundFourGames} updateRoundFourGameCard={this.updateRoundFourGameCard} winner={this.state.winner} updateWinner={this.updateWinner} /></div>
-              )
-            }} />
-          <Route
-            path="/fantasy"
-            render={() => {
-              return (
-                <div><Fantasy /></div>
-              )
-            }} />
-          <Route
-            path="/firebolt"
-            render={() => {
-              return (
-                <div><Firebolt /></div>
-              )
-            }} />
-          <Route
-            path="/shop"
-            render={() => {
-              return (
-                <div><Shop /></div>
-              )
-            }} />
-          <Route
-            path="/fourhundredtwentytwo"
-            render={() => {
-              return (
-                <div><FourHundredTwentyTwo /></div>
-              )
-            }} />
-          <Route
-            path="/teamswhomadeit"
-            render={() => {
-              return (
-                <div><TeamsWhoMadeIt teams={this.state.allTeams} /></div>
-              )
-            }} />
-        </Switch >
+        <div className="game-display-and-navbar" >
+          <GameDisplay weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} playoffGames={this.state.playoffGames} />
+          <br />
+          <NavBar />
+        </div>
+        <div className="body">
+          <Switch>
+            <Route
+              path="/home"
+              render={() => {
+                return (
+                  <div><Home winner={this.state.winner} roundFourGames={this.state.roundFourGames} /></div>
+                )
+              }} />
+            <Route
+              path="/rosters"
+              render={() => {
+                return (
+                  <div><Roster allTeams={this.state.allTeams} updateStandingsAndRosters={this.updateStandingsAndRosters} /></div>
+                )
+              }} />
+            <Route
+              path="/schedule"
+              render={() => {
+                return (
+                  <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} /></div>
+                )
+              }} />
+            <Route
+              path="/stats"
+              render={() => {
+                return (
+                  <div><Stats allPlayers={this.state.allPlayers} updateStats={this.updateStats} /></div>
+                )
+              }} />
+            <Route
+              path="/standings"
+              render={() => {
+                return (
+                  <div><Standings allTeams={this.state.allTeams} updateStandingsAndRosters={this.updateStandingsAndRosters} /></div>
+                )
+              }} />
+            <Route
+              path="/playoffs"
+              render={() => {
+                return (
+                  <div><Playoffs weeklyGames={this.state.weeklyGames} roundOneGames={this.state.roundOneGames} updateRoundOneGames={this.updateRoundOneGames} updateRoundOneGameCard={this.updateRoundOneGameCard} roundTwoGames={this.state.roundTwoGames} updateRoundTwoGames={this.updateRoundTwoGames} updateRoundTwoGameCard={this.updateRoundTwoGameCard} roundThreeGames={this.state.roundThreeGames} updateRoundThreeGames={this.updateRoundThreeGames} updateRoundThreeGameCard={this.updateRoundThreeGameCard} roundFourGames={this.state.roundFourGames} updateRoundFourGames={this.updateRoundFourGames} updateRoundFourGameCard={this.updateRoundFourGameCard} winner={this.state.winner} updateWinner={this.updateWinner} /></div>
+                )
+              }} />
+            <Route
+              path="/fantasy"
+              render={() => {
+                return (
+                  <div><Fantasy /></div>
+                )
+              }} />
+            <Route
+              path="/firebolt"
+              render={() => {
+                return (
+                  <div><Firebolt /></div>
+                )
+              }} />
+            <Route
+              path="/shop"
+              render={() => {
+                return (
+                  <div><Shop /></div>
+                )
+              }} />
+            <Route
+              path="/fourhundredtwentytwo"
+              render={() => {
+                return (
+                  <div><FourHundredTwentyTwo /></div>
+                )
+              }} />
+            <Route
+              path="/teamswhomadeit"
+              render={() => {
+                return (
+                  <div><TeamsWhoMadeIt teams={this.state.allTeams} /></div>
+                )
+              }} />
+          </Switch >
+        </div>
       </div>
     )
   }
