@@ -70,6 +70,11 @@ export class App extends React.Component {
     this.setState({ selectedWeek: newUpdatedWeek, weeklyGames: newWeeklyGames })
   }
 
+  updateSelectedWeekGameCard = (data) => {
+    const newWeeklyGames = this.state.weeklyGames.map(wg => wg.id === this.state.selectedWeek.id ? data : wg)
+    this.setState({ selectedWeek: data, weeklyGames: newWeeklyGames })
+  }
+
   updateRoundOneGameCard = (data) => {
     const completedGame = data
     let updatedRoundOne = this.state.roundOneGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
@@ -150,7 +155,7 @@ export class App extends React.Component {
               path="/schedule"
               render={() => {
                 return (
-                  <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} /></div>
+                  <div><Schedule weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} option={this.state.option} changeWeek={this.changeWeek} updateGameCard={this.updateGameCard} updateSelectedWeekGameCard={this.updateSelectedWeekGameCard} /></div>
                 )
               }} />
             <Route

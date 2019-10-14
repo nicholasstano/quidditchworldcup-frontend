@@ -5,6 +5,20 @@ import ScheduleGameCard from '../components/ScheduleGameCard'
 
 export class Schedule extends Component {
 
+
+    sendWeekResults = () => {
+        fetch(`http://localhost:3000/weeks/${this.props.selectedWeek.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+                "accept": "application/json"
+            },
+        }).then(res => res.json()).then(data => {
+            this.props.updateSelectedWeekGameCard(data)
+        }
+        )
+    }
+
     renderSelectedWk = () => {
         return this.props.selectedWeek.week_games.map(game =>
             < ScheduleGameCard updateGameCard={this.props.updateGameCard} key={game.game_id} {...game} />
@@ -30,12 +44,15 @@ export class Schedule extends Component {
                         <div>{this.props.option}
                             <h5>
                                 {this.props.selectedWeek.week_games.filter(game => game.game_completed === true).length} / 16 Games Final
-                        </h5>
+                                {this.props.selectedWeek.week_games.filter(game => game.game_completed === true).length < 16 ? <button onClick={this.sendWeekResults}>View All Remaining Game Results</button> : null}
+                            </h5>
                         </div>}
                 </h1>
                 <br />
                 <div className="schedule">
+
                     {this.props.selectedWeek === null ? weekOneGameCards : this.renderSelectedWk()}
+                    <h6>In case of a tie, win goes to the team whose player caught the Snitch.</h6>
                 </div>
             </div >
         )
