@@ -8,6 +8,7 @@ import Schedule from '../src/containers/Schedule'
 import Standings from './containers/Standings'
 import Stats from '../src/containers/Stats'
 import Fantasy from '../src/containers/Fantasy'
+import Login from '../src/containers/Login'
 import Playoffs from '../src/containers/Playoffs'
 import Firebolt from '../src/components/Firebolt'
 import Shop from './components/Shop'
@@ -29,8 +30,13 @@ export class App extends React.Component {
     roundThreeGames: [],
     roundFourGames: [],
     winner: null,
-    playoffGames: []
+    playoffGames: [],
+    user: null
   }
+
+  setUser = userLogin => {
+    this.setState({ user: userLogin });
+  };
 
   componentDidMount() {
     fetch(`http://localhost:3000/weeks`)
@@ -53,6 +59,20 @@ export class App extends React.Component {
     fetch(`http://localhost:3000/playoff_games`)
       .then(res => res.json())
       .then(playoffGames => this.setState({ playoffGames: playoffGames }))
+
+    const userId = localStorage.getItem("userId")
+    if (userId) {
+      fetch(`http://localhost:3000/autologin`, {
+        headers: {
+          accept: "application/json",
+          Authorization: userId
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          this.setState({ user: data })
+        })
+    }
   }
 
   changeWeek = (event) => {
@@ -133,9 +153,9 @@ export class App extends React.Component {
         <div className="game-display-and-navbar" >
           <GameDisplay weeklyGames={this.state.weeklyGames} selectedWeek={this.state.selectedWeek} playoffGames={this.state.playoffGames} />
           <br />
-          <NavBar />
         </div>
         <div className="body">
+          <NavBar user={this.state.user} />
           <Switch>
             <Route
               path="/home"
@@ -179,13 +199,20 @@ export class App extends React.Component {
                   <div><Playoffs weeklyGames={this.state.weeklyGames} roundOneGames={this.state.roundOneGames} updateRoundOneGames={this.updateRoundOneGames} updateRoundOneGameCard={this.updateRoundOneGameCard} roundTwoGames={this.state.roundTwoGames} updateRoundTwoGames={this.updateRoundTwoGames} updateRoundTwoGameCard={this.updateRoundTwoGameCard} roundThreeGames={this.state.roundThreeGames} updateRoundThreeGames={this.updateRoundThreeGames} updateRoundThreeGameCard={this.updateRoundThreeGameCard} roundFourGames={this.state.roundFourGames} updateRoundFourGames={this.updateRoundFourGames} updateRoundFourGameCard={this.updateRoundFourGameCard} winner={this.state.winner} updateWinner={this.updateWinner} /></div>
                 )
               }} />
-            <Route
-              path="/fantasy"
+            {this.state.user == null ? <Route
+              path="/login"
               render={() => {
                 return (
-                  <div><Fantasy /></div>
+                  <div><Login user={this.state.user} setUser={this.setUser} /></div>
                 )
-              }} />
+              }} /> :
+              <Route
+                path="/fantasy"
+                render={() => {
+                  return (
+                    <div><Fantasy user={this.state.user} setUser={this.setUser} /></div>
+                  )
+                }} />}
             <Route
               path="/firebolt"
               render={() => {
