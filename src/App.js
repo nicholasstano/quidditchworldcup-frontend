@@ -44,11 +44,10 @@ export class App extends React.Component {
   setLeagues = user => {
     this.setState({ userEliminatorLeagues: user.user.eliminator_leagues })
     // const userEliminatorIds = user.user.eliminator_leagues.map()
-    fetch(`http://localhost:3000/eliminator_leagues`)
+    fetch(`http://localhost:3000/open_eliminator_leagues/${user.id}`)
       .then(res => res.json())
       .then(leagues => {
-        debugger
-        let openLeagues = leagues.filter(league => console.log(league.eliminator_league.users))
+        console.log("leagues", leagues)
       })
   }
 
