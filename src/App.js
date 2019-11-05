@@ -8,6 +8,7 @@ import Schedule from '../src/containers/Schedule'
 import Standings from './containers/Standings'
 import Stats from '../src/containers/Stats'
 import Fantasy from '../src/containers/Fantasy'
+import Eliminator from '../src/containers/Eliminator'
 import Login from '../src/containers/Login'
 import Playoffs from '../src/containers/Playoffs'
 import Firebolt from '../src/components/Firebolt'
@@ -31,12 +32,25 @@ export class App extends React.Component {
     roundFourGames: [],
     winner: null,
     playoffGames: [],
-    user: null
+    user: null,
+    userEliminatorLeagues: [],
+    openEliminatorLeagues: null
   }
 
   setUser = userLogin => {
     this.setState({ user: userLogin });
   };
+
+  setLeagues = user => {
+    this.setState({ userEliminatorLeagues: user.user.eliminator_leagues })
+    // const userEliminatorIds = user.user.eliminator_leagues.map()
+    fetch(`http://localhost:3000/eliminator_leagues`)
+      .then(res => res.json())
+      .then(leagues => {
+        debugger
+        let openLeagues = leagues.filter(league => console.log(league.eliminator_league.users))
+      })
+  }
 
   componentDidMount() {
     fetch(`http://localhost:3000/weeks`)
@@ -70,7 +84,7 @@ export class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          this.setState({ user: data })
+          this.setState({ user: data, userEliminatorLeagues: data.user.eliminator_leagues })
         })
     }
   }
@@ -203,16 +217,23 @@ export class App extends React.Component {
               path="/login"
               render={() => {
                 return (
-                  <div><Login user={this.state.user} setUser={this.setUser} /></div>
+                  <div><Login user={this.state.user} setUser={this.setUser} setLeagues={this.setLeagues} /></div>
                 )
               }} /> :
               <Route
                 path="/fantasy"
                 render={() => {
                   return (
-                    <div><Fantasy user={this.state.user} setUser={this.setUser} /></div>
+                    <div><Fantasy user={this.state.user} setUser={this.setUser} userEliminatorLeagues={this.state.userEliminatorLeagues} /></div>
                   )
                 }} />}
+            <Route
+              path="/eliminator"
+              render={() => {
+                return (
+                  <div><Eliminator user={this.state.user} setUser={this.setUser} userEliminatorLeagues={this.state.userEliminatorLeagues} /></div>
+                )
+              }} />
             <Route
               path="/firebolt"
               render={() => {

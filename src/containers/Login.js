@@ -55,6 +55,7 @@ export class Login extends Component {
                 if (data.id >= 1) {
                     localStorage.setItem('userId', data.id)
                     this.props.setUser(data)
+                    this.props.setLeagues(data)
                     this.props.history.push('/fantasy')
                 }
                 else {

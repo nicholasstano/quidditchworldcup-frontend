@@ -179,6 +179,23 @@ justify-content: space-between;
 align-items: center;
 }
 
+.fantasy-navBar {
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+align-items: left;
+margin: 10px 0px;
+}
+
+.fantasy-link {
+  border-style: groove;
+  border-color: black;
+  width: 150px;
+  margin: 10px 0px;
+  border-radius: 9%;
+  padding: 0.25%;
+}
+
 .home-story img {
   border-style: solid;
 }

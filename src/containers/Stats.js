@@ -100,7 +100,6 @@ export class Stats extends Component {
 
         return (
             <div className="stats">
-                <br />
                 <Dropdown options={options} onChange={this.changePosition} value={`Position: ${this.state.option}`} placeholder="Select an option" />
                 <br />
                 {this.state.selectedPosition === null ?

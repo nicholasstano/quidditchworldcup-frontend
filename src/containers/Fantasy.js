@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 export class Fantasy extends Component {
 
@@ -11,11 +13,29 @@ export class Fantasy extends Component {
     };
 
     render() {
+        const userEliminatorLeagues = this.props.userEliminatorLeagues.map(league => league)
+        const columns = [{
+            Header: 'Eliminator League Name',
+            accessor: 'name'
+        }]
         return (
-            <div>
-                <h1>Coming Soon, Weekly Pick Em, Eliminator Pick Em, Daily Fantasy</h1>
-                <button onClick={this.handleLogout}>Log Out {this.props.user.username}</button><br /><br />
-                {this.props.user.username ? <div>Welcome {this.props.user.username}!</div> : null}
+            <div >
+                <div className="fantasy-navBar">
+                    <h5 className="fantasy-link"> Username: {this.props.user.user.username}</h5>
+                    <Link className="fantasy-link" to="/fantasy">Fantasy Home</Link>
+                    <h5 className="fantasy-link" onClick={this.handleLogout}>Log Out </h5>
+                    <Link className="fantasy-link" to="/eliminator">Eliminator</Link>
+                    <Link className="fantasy-link" to="/home" >Weekly Pick 'Em</Link>
+                    <Link className="fantasy-link" to="/home" >Daily Fantasy</Link>
+                </div >
+                <div className="fantasy-leagues">
+                    <ReactTable
+                        data={userEliminatorLeagues}
+                        columns={columns}
+                        defaultPageSize={5}
+                    // defaultSorted={[{ id: "wins", desc: true }, { id: "points_for", desc: true }, { id: "points_against", desc: false }]}
+                    />
+                </div>
             </div>
         )
     }
