@@ -43,7 +43,6 @@ export class App extends React.Component {
 
   setLeagues = user => {
     this.setState({ userEliminatorLeagues: user.user.eliminator_leagues })
-    // const userEliminatorIds = user.user.eliminator_leagues.map()
     fetch(`http://localhost:3000/open_eliminator_leagues/${user.id}`)
       .then(res => res.json())
       .then(leagues => {
@@ -97,7 +96,7 @@ export class App extends React.Component {
 
   updateGameCard = (data) => {
     const newGameWeek = data.game
-    let updatedWeek = this.state.selectedWeek.week_games.slice().map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
+    let updatedWeek = this.state.selectedWeek.week_games.map(weekGame => weekGame.game_id === newGameWeek.game_id ? newGameWeek : weekGame)
     const newUpdatedWeek = { ...this.state.selectedWeek, week_games: updatedWeek }
     const newWeeklyGames = this.state.weeklyGames.map(wg => wg.id === this.state.selectedWeek.id ? newUpdatedWeek : wg)
     this.setState({ selectedWeek: newUpdatedWeek, weeklyGames: newWeeklyGames })
@@ -110,25 +109,25 @@ export class App extends React.Component {
 
   updateRoundOneGameCard = (data) => {
     const completedGame = data
-    let updatedRoundOne = this.state.roundOneGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
+    let updatedRoundOne = this.state.roundOneGames.map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
     this.setState({ roundOneGames: updatedRoundOne, playoffGames: updatedRoundOne })
   }
 
   updateRoundTwoGameCard = (data) => {
     const completedGame = data
-    let updatedRoundTwo = this.state.roundTwoGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
+    let updatedRoundTwo = this.state.roundTwoGames.map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
     this.setState({ roundTwoGames: updatedRoundTwo, playoffGames: updatedRoundTwo })
   }
 
   updateRoundThreeGameCard = (data) => {
     const completedGame = data
-    let updatedRoundThree = this.state.roundThreeGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
+    let updatedRoundThree = this.state.roundThreeGames.map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
     this.setState({ roundThreeGames: updatedRoundThree, playoffGames: updatedRoundThree })
   }
 
   updateRoundFourGameCard = (data) => {
     const completedGame = data
-    let updatedRoundFour = this.state.roundFourGames.slice().map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
+    let updatedRoundFour = this.state.roundFourGames.map(game => game.teamInfo.playoff_game_id === completedGame.teamInfo.playoff_game_id ? completedGame : game)
     this.setState({ roundFourGames: updatedRoundFour, playoffGames: updatedRoundFour })
   }
 
